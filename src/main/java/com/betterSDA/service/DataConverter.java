@@ -19,6 +19,8 @@ public class DataConverter {
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())
                 .email(person.getEmail())
+                .addressEntity(toEntity(person.getAddress()))
+                .teamEntity(toEntity(person.getTeam()))
                 .phoneNumber(person.getPhoneNumber())
                 .build();
     }
@@ -29,6 +31,8 @@ public class DataConverter {
                 .firstName(personEntity.getFirstName())
                 .lastName(personEntity.getLastName())
                 .email(personEntity.getEmail())
+                .address(toDto(personEntity.getAddressEntity()))
+                .team(toDto(personEntity.getTeamEntity()))
                 .phoneNumber(personEntity.getPhoneNumber())
                 .build();
     }
@@ -53,14 +57,23 @@ public class DataConverter {
                 .build();
     }
 
-    //GÓWNO NIE DZIAŁA MI MÓZG I NIE WIEM JAK TO PRZEKONWERTOWAĆ... LECE NA OGNISKO JUTRO TO ZROBIĘ
-//    public Team toDto(TeamEntity teamEntity) {
-//        return Team.builder()
-//                .name(teamEntity.getName())
-//                .teacherSet(teamEntity.getTeacherEntitySet())
-//                .studentSet(teamEntity.getStudentEntitySet())
-//                .build();
-//    }
+//GÓWNO NIE DZIAŁA MI MÓZG I NIE WIEM JAK TO PRZEKONWERTOWAĆ... LECE NA OGNISKO JUTRO TO ZROBIĘ
+// ;)
+    public static Team toDto(TeamEntity teamEntity) {
+        return Team.builder()
+                .name(teamEntity.getName())
+                .teacherSet(teamEntity.getTeacherEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
+                .studentSet(teamEntity.getStudentEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
+                .build();
+    }
+
+    public static TeamEntity toEntity(Team team) {
+        return TeamEntity.builder()
+                .name(team.getName())
+                .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
+                .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
+                .build();
+    }
 
 
 

@@ -15,6 +15,7 @@ public class Team {
 
     private String name;
 
+    //To do
     //private ExpirationDate expirationDate;
 
     private Set<Person> studentSet;
