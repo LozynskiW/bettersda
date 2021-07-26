@@ -1,8 +1,6 @@
 package com.betterSDA.model.dto;
 
 import com.betterSDA.model.ExpirationDate;
-import com.betterSDA.model.entity.StudentEntity;
-import com.betterSDA.model.entity.TeacherEntity;
 import lombok.*;
 
 import javax.persistence.Id;
@@ -19,7 +17,7 @@ public class Team {
 
     //private ExpirationDate expirationDate;
 
-    private Set<StudentEntity> studentEntitySet;
+    private Set<Person> studentSet;
 
-    private Set<TeacherEntity> teacherEntitySet;
+    private Set<Person> teacherSet;
 }

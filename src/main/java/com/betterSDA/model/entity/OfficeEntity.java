@@ -1,6 +1,6 @@
 package com.betterSDA.model.entity;
 
-import com.betterSDA.model.ExpirationDate;
+import com.betterSDA.model.dto.Group;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,20 +12,15 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter
 @Getter
-public class TeamEntity {
+public class OfficeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-
-    //Do przemyślenia co nie działa
-    //@OneToOne
-    //private ExpirationDate expirationDate;
+    private String phoneNumber;
+    private String email;
 
     @OneToMany
-    private Set<PersonEntity> studentEntitySet;
-
-    @OneToMany
-    private Set<PersonEntity> teacherEntitySet;
-
+    private Set<PersonEntity> admins;
 }
