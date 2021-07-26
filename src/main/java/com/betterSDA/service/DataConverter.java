@@ -5,7 +5,7 @@ import com.betterSDA.model.entity.PersonEntity;
 
 public class DataConverter {
 
-    private PersonEntity ToEntity(Person person) {
+    public static PersonEntity toEntity(Person person) {
 
         return PersonEntity.builder()
                 .id(person.getId())
@@ -16,7 +16,7 @@ public class DataConverter {
                 .build();
     }
 
-    private Person ToDto(PersonEntity personEntity) {
+    public static Person toDto(PersonEntity personEntity) {
         return Person.builder()
                 .id(personEntity.getId())
                 .firstName(personEntity.getFirstName())
