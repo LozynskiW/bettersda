@@ -2,7 +2,7 @@ package com.betterSDA.model.entity;
 
 import com.betterSDA.model.RoleEnum;
 import com.betterSDA.model.dto.Address;
-import com.betterSDA.model.dto.Group;
+import com.betterSDA.model.dto.Team;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,5 +30,5 @@ public class PersonEntity {
     protected AddressEntity addressEntity;
 
     @ManyToOne
-    private GroupEntity groupEntity;
+    private TeamEntity teamEntity;
 }

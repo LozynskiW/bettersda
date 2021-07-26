@@ -1,6 +1,6 @@
 package com.betterSDA.model.entity;
 
-import com.betterSDA.model.dto.Group;
+import com.betterSDA.model.dto.Team;
 import lombok.*;
 
 import javax.persistence.*;

@@ -2,7 +2,7 @@ package com.betterSDA.model.dto;
 
 import com.betterSDA.model.RoleEnum;
 import com.betterSDA.model.dto.Address;
-import com.betterSDA.model.dto.Group;
+import com.betterSDA.model.dto.Team;
 import lombok.*;
 
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class Person {
     private String phoneNumber;
     private String email;
     private Address address;
-    private Group group;
+    private Team team;
     private RoleEnum role;
 
 
