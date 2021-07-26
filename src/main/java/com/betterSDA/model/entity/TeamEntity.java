@@ -2,8 +2,10 @@ package com.betterSDA.model.entity;
 
 import com.betterSDA.model.ExpirationDate;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -15,12 +17,9 @@ import java.util.Set;
 public class TeamEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue()
+    @NotNull
     private String name;
-
-    //Do przemyślenia co nie działa
-    //@OneToOne
-    //private ExpirationDate expirationDate;
 
     @OneToMany
     private Set<PersonEntity> studentEntitySet;
