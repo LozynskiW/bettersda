@@ -1,11 +1,17 @@
 package com.betterSDA.model.entity;
 
 import com.betterSDA.model.ExpirationDate;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class GroupEntity {
 
     @Id
