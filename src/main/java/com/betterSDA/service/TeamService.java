@@ -18,37 +18,31 @@ public class TeamService {
     private final TeamRepo teamRepo;
 
 
-    public Team toTeam(TeamEntity entity) {
-        return Team.builder()
-                .name(entity.getName())
-                .studentEntitySet(entity.getStudentEntitySet())
-                .teacherEntitySet(entity.getTeacherEntitySet())
-                .build();
-    }
 
-    public void addTeam(Team team) {
-        teamRepo.save(TeamEntity.builder()
-                .studentEntitySet(team.getStudentEntitySet())
-                .teacherEntitySet(team.getTeacherEntitySet())
-                .build());
-    }
-
-    public void updateTeam(Team team) {
-        teamRepo.save(TeamEntity.builder()
-                .name(team.getName())
-                .studentEntitySet(team.getStudentEntitySet())
-                .teacherEntitySet(team.getTeacherEntitySet())
-                .build());
-    }
-
-    public void deleteTeamByIdName (String name) {
-        teamRepo.deleteById(name);
-    }
-
-    public List<Team> getAllTeams() {
-        return teamRepo.findAll().stream().map(this::toTeam)
-                .collect(Collectors.toList());
-    }
+//
+//    public void addTeam(Team team) {
+//        teamRepo.save(TeamEntity.builder()
+//                .studentEntitySet(team.getStudentSet())
+//                .teacherEntitySet(team.getTeacherEntitySet())
+//                .build());
+//    }
+//
+//    public void updateTeam(Team team) {
+//        teamRepo.save(TeamEntity.builder()
+//                .name(team.getName())
+//                .studentEntitySet(team.getStudentEntitySet())
+//                .teacherEntitySet(team.getTeacherEntitySet())
+//                .build());
+//    }
+//
+//    public void deleteTeamByIdName (String name) {
+//        teamRepo.deleteById(name);
+//    }
+//
+//    public List<Team> getAllTeams() {
+//        return teamRepo.findAll().stream().map(this::toTeam)
+//                .collect(Collectors.toList());
+//    }
 
 
 }

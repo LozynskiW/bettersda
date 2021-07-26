@@ -41,25 +41,17 @@ public class AddressService {
     }
 
     public List<Address> getAllAddresses() {
-        return addressRepo.findAll().stream().map(this::toAddress)
+        return addressRepo.findAll().stream().map(DataConverter::toDto)
         .collect(Collectors.toList());
     }
 
-    public Address toAddress(AddressEntity entity) {
-        return Address.builder()
-                .id(entity.getId())
-                .street(entity.getStreet())
-                .city(entity.getCity())
-                .zipCode(entity.getZipCode())
-                .country(entity.getCountry())
-                .build();
-    }
+
 
     public Address getAddressById(Long id) {
 
         Optional<AddressEntity> addressEntity = addressRepo.findById(id);
 
-        if (addressEntity.isPresent()) return toAddress(addressEntity.get());
+        if (addressEntity.isPresent()) return DataConverter.toDto(addressEntity.get());
 
         throw new NoSuchElementException("No address found in database");
 
