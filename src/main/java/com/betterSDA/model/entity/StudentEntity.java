@@ -1,8 +1,6 @@
 package com.betterSDA.model.entity;
 
 import com.betterSDA.model.Person;
-import com.betterSDA.model.dto.Address;
-import com.betterSDA.model.dto.Group;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,14 +21,14 @@ public class StudentEntity extends Person {
     protected AddressEntity addressEntity;
 
     @ManyToOne
-    private GroupEntity groupEntity;
+    private TeamEntity teamEntity;
 
     public StudentEntity(Long id, String firstName, String lastName, String phoneNumber,
-                         String email, AddressEntity addressEntity, GroupEntity groupEntity) {
+                         String email, AddressEntity addressEntity, TeamEntity teamEntity) {
 
         super(firstName, lastName, phoneNumber, email);
         this.id = id;
-        this.groupEntity = groupEntity;
+        this.teamEntity = teamEntity;
         this.addressEntity = addressEntity;
     }
 
@@ -42,7 +40,7 @@ public class StudentEntity extends Person {
         private String phoneNumber;
         private String email;
         private AddressEntity addressEntity;
-        private GroupEntity groupEntity;
+        private TeamEntity teamEntity;
 
         public Builder id(final Long id) {
             this.id = id;
@@ -75,13 +73,13 @@ public class StudentEntity extends Person {
         }
 
 
-        public Builder groupEntity(final GroupEntity groupEntity) {
-            this.groupEntity = groupEntity;
+        public Builder groupEntity(final TeamEntity teamEntity) {
+            this.teamEntity = teamEntity;
             return this;
         }
 
         public StudentEntity build() {
-            return new StudentEntity(id, firstName, lastName, phoneNumber, email, addressEntity, groupEntity);
+            return new StudentEntity(id, firstName, lastName, phoneNumber, email, addressEntity, teamEntity);
         }
     }
 

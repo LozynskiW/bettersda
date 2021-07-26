@@ -1,9 +1,6 @@
 package com.betterSDA.model.entity;
 
 import com.betterSDA.model.Person;
-import com.betterSDA.model.dto.Address;
-import com.betterSDA.model.dto.Group;
-import com.betterSDA.model.dto.Teacher;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,10 +23,10 @@ public class TeacherEntity extends Person {
     protected AddressEntity addressEntity;
 
     @ManyToMany
-    private Set<GroupEntity> groupsEntity;
+    private Set<TeamEntity> groupsEntity;
 
     public TeacherEntity(Long id, String firstName, String lastName, String phoneNumber, String email,
-                         AddressEntity addressEntity, Set<GroupEntity> groups) {
+                         AddressEntity addressEntity, Set<TeamEntity> groups) {
         super(firstName, lastName, phoneNumber, email);
         this.id = id;
         this.groupsEntity = groups;
@@ -43,7 +40,7 @@ public class TeacherEntity extends Person {
         private String phoneNumber;
         private String email;
         private AddressEntity addressEntity;
-        private Set<GroupEntity> groupsEntity;
+        private Set<TeamEntity> groupsEntity;
 
         public Builder id(final Long id) {
             this.id = id;
@@ -75,7 +72,7 @@ public class TeacherEntity extends Person {
             return this;
         }
 
-        public Builder groupEntity(final Set<GroupEntity> groupsEntity) {
+        public Builder groupEntity(final Set<TeamEntity> groupsEntity) {
             this.groupsEntity = groupsEntity;
             return this;
         }

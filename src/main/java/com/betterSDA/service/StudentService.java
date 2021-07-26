@@ -1,10 +1,10 @@
 package com.betterSDA.service;
 
-import com.betterSDA.model.dto.Group;
+import com.betterSDA.model.dto.Team;
 import com.betterSDA.model.dto.Student;
-import com.betterSDA.model.entity.GroupEntity;
+import com.betterSDA.model.entity.TeamEntity;
 import com.betterSDA.model.entity.StudentEntity;
-import com.betterSDA.repo.PersonRepo;
+
 import com.betterSDA.repo.StudentRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,7 +56,7 @@ public class StudentService {
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName())
                 .email(student.getEmail())
-                .groupEntity(this.toEntity(student.getGroup()))
+                .groupEntity(this.toEntity(student.getTeam()))
                 .phoneNumber(student.getPhoneNumber())
                 .build();
     }
@@ -71,9 +71,9 @@ public class StudentService {
                 .build();
     }
 
-    private GroupEntity toEntity(Group group){
-        return GroupEntity.builder()
-                .name(group.getName())
+    private TeamEntity toEntity(Team team){
+        return TeamEntity.builder()
+                .name(team.getName())
                 .build();
     }
 

@@ -5,6 +5,7 @@ import com.betterSDA.model.entity.StudentEntity;
 import com.betterSDA.model.entity.TeacherEntity;
 import lombok.*;
 
+import javax.persistence.Id;
 import java.util.Set;
 
 @Getter
@@ -12,11 +13,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Group {
+public class Team {
 
     private String name;
 
-    private ExpirationDate expirationDate;
+    //private ExpirationDate expirationDate;
 
     private Set<StudentEntity> studentEntitySet;
 

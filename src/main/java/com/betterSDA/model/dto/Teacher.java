@@ -16,13 +16,13 @@ public class Teacher extends Person {
 
     private Address address;
 
-    private Set<Group> groups;
+    private Set<Team> teams;
 
     public Teacher(Long id, String firstName, String lastName, String phoneNumber, String email,
-                   Address address, Set<Group> groups) {
+                   Address address, Set<Team> teams) {
         super(firstName, lastName, phoneNumber, email);
         this.id = id;
-        this.groups = groups;
+        this.teams = teams;
         this.address = address;
     }
 
@@ -33,7 +33,7 @@ public class Teacher extends Person {
         private String phoneNumber;
         private String email;
         private Address address;
-        private Set<Group> groups;
+        private Set<Team> teams;
 
         public Builder id(final Long id) {
             this.id = id;
@@ -65,13 +65,13 @@ public class Teacher extends Person {
             return this;
         }
 
-        public Builder groupEntity(final Set<Group> groups) {
-            this.groups = groups;
+        public Builder groupEntity(final Set<Team> teams) {
+            this.teams = teams;
             return this;
         }
 
         public Teacher build() {
-            return new Teacher(id, firstName, lastName, phoneNumber, email, address, groups);
+            return new Teacher(id, firstName, lastName, phoneNumber, email, address, teams);
         }
     }
 }

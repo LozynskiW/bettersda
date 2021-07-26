@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class AddressService {
                 .build());
     }
 
-    public void deleteAddress (Long id) {
+    public void deleteAddressById (Long id) {
         addressRepo.deleteById(id);
     }
 
@@ -54,7 +56,13 @@ public class AddressService {
     }
 
     public Address getAddressById(Long id) {
-        return toAddress(addressRepo.getOne(id));
+
+        Optional<AddressEntity> addressEntity = addressRepo.findById(id);
+
+        if (addressEntity.isPresent()) return toAddress(addressEntity.get());
+
+        throw new NoSuchElementException("No address found in database");
+
     }
 
 

@@ -1,8 +1,8 @@
 package com.betterSDA.service;
 
-import com.betterSDA.model.dto.Group;
+import com.betterSDA.model.dto.Team;
 import com.betterSDA.model.dto.Teacher;
-import com.betterSDA.model.entity.GroupEntity;
+import com.betterSDA.model.entity.TeamEntity;
 import com.betterSDA.model.entity.TeacherEntity;
 import com.betterSDA.repo.TeacherRepo;
 import lombok.RequiredArgsConstructor;
@@ -69,9 +69,9 @@ public class TeacherService {
                 .build();
     }
 
-    private GroupEntity toEntity(Group group){
-        return GroupEntity.builder()
-                .name(group.getName())
+    private TeamEntity toEntity(Team team){
+        return TeamEntity.builder()
+                .name(team.getName())
                 .build();
     }
 }

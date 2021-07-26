@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter
 @Getter
-public class GroupEntity {
+public class TeamEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

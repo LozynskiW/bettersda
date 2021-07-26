@@ -1,9 +1,6 @@
 package com.betterSDA.model.dto;
 
 import com.betterSDA.model.Person;
-import com.betterSDA.model.entity.AddressEntity;
-import com.betterSDA.model.entity.GroupEntity;
-import com.betterSDA.model.entity.StudentEntity;
 import lombok.*;
 
 @Getter
@@ -15,14 +12,14 @@ public class Student extends Person {
 
     private Long id;
 
-    private Group group;
+    private Team team;
 
     private Address address;
 
-    public Student(Long id, String firstName, String lastName, String phoneNumber, String email, Address address, Group group) {
+    public Student(Long id, String firstName, String lastName, String phoneNumber, String email, Address address, Team team) {
         super(firstName, lastName, phoneNumber, email);
         this.id = id;
-        this.group = group;
+        this.team = team;
         this.address = address;
     }
 
@@ -33,7 +30,7 @@ public class Student extends Person {
         private String phoneNumber;
         private String email;
         private Address address;
-        private Group group;
+        private Team team;
 
         public Builder id(final Long id) {
             this.id = id;
@@ -65,13 +62,13 @@ public class Student extends Person {
             return this;
         }
 
-        public Builder groupEntity(final Group group) {
-            this.group = group;
+        public Builder groupEntity(final Team team) {
+            this.team = team;
             return this;
         }
 
         public Student build() {
-            return new Student(id, firstName, lastName, phoneNumber, email, address, group);
+            return new Student(id, firstName, lastName, phoneNumber, email, address, team);
         }
     }
 }
