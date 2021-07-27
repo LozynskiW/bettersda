@@ -4,6 +4,7 @@ import com.betterSDA.model.ExpirationDate;
 import lombok.*;
 
 import javax.persistence.Id;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter

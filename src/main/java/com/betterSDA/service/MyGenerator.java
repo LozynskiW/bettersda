@@ -1,39 +1,42 @@
 package com.betterSDA.service;
 
+
 import org.hibernate.HibernateException;
+import org.hibernate.boot.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.IdentifierGenerator;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+import org.hibernate.internal.util.config.ConfigurationHelper;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.LongType;
+import org.hibernate.type.Type;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Properties;
 
-public class MyGenerator implements IdentifierGenerator {
+public class MyGenerator extends SequenceStyleGenerator {
+
+
+    public static final String VALUE_PREFIX_PARAMETER = "valuePrefix";
+    public static final String VALUE_PREFIX_DEFAULT = "";
+    private String valuePrefix;
+
+    public static final String NUMBER_FORMAT_PARAMETER = "numberFormat";
+    public static final String NUMBER_FORMAT_DEFAULT = "%d";
+    private String numberFormat;
 
     @Override
-    public Serializable generate(SharedSessionContractImplementor session, Object object)
-            throws HibernateException {
+    public Serializable generate(SharedSessionContractImplementor session,
+                                 Object object) throws HibernateException {
+        return valuePrefix + String.format(numberFormat, super.generate(session, object));
+    }
 
-        String prefix = "ZDJAVApol";
-        Connection connection = session.connection();
-
-        try {
-            Statement statement=connection.createStatement();
-
-            ResultSet rs=statement.executeQuery("select count(team_name) as Id from Client");
-
-            if(rs.next())
-            {
-                int id=rs.getInt(1)+101;
-                return prefix + id;
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return null;
+    @Override
+    public void configure(Type type, Properties params,
+                          ServiceRegistry serviceRegistry) throws MappingException {
+        super.configure(LongType.INSTANCE, params, serviceRegistry);
+        valuePrefix = ConfigurationHelper.getString(VALUE_PREFIX_PARAMETER,
+                params, VALUE_PREFIX_DEFAULT);
+        numberFormat = ConfigurationHelper.getString(NUMBER_FORMAT_PARAMETER,
+                params, NUMBER_FORMAT_DEFAULT);
     }
 }
