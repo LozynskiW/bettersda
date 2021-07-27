@@ -40,7 +40,7 @@ public class AddressController {
     }
 
     @GetMapping("/{id}")
-    public Address getAddressById(Long id) {
+    public Address getAddressById(@PathVariable Long id) {
         return addressService.getAddressById(id);
     }
 }

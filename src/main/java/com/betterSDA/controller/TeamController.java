@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/team")
 @RequiredArgsConstructor
-public class GroupController {
+public class TeamController {
     private final TeamService teamService;
 
 //    @GetMapping("/")
@@ -65,7 +65,7 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public Team getTeamById(String id) {
+    public Team getTeamById(@PathVariable String id) {
         return teamService.getTeamById(id);
     }
 
