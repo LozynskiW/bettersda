@@ -29,6 +29,5 @@ public class PersonEntity {
     @OneToOne
     protected AddressEntity addressEntity;
 
-    @ManyToOne
-    private TeamEntity teamEntity;
+    private String teamID;
 }

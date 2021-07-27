@@ -20,7 +20,7 @@ public class DataConverter {
                 .lastName(person.getLastName())
                 .email(person.getEmail())
                 .addressEntity(toEntity(person.getAddress()))
-                .teamEntity(toEntity(person.getTeam()))
+                .teamID(person.getTeamID())
                 .phoneNumber(person.getPhoneNumber())
                 .build();
     }
@@ -32,7 +32,7 @@ public class DataConverter {
                 .lastName(personEntity.getLastName())
                 .email(personEntity.getEmail())
                 .address(toDto(personEntity.getAddressEntity()))
-                .team(toDto(personEntity.getTeamEntity()))
+                .teamID(personEntity.getTeamID())
                 .phoneNumber(personEntity.getPhoneNumber())
                 .build();
     }

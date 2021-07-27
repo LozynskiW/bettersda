@@ -5,6 +5,8 @@ import com.betterSDA.model.dto.Address;
 import com.betterSDA.model.dto.Team;
 import lombok.*;
 
+import java.util.Optional;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,7 +21,7 @@ public class Person {
     private String phoneNumber;
     private String email;
     private Address address;
-    private Team team;
+    private String teamID;
     private RoleEnum role;
 
 
