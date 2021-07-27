@@ -5,6 +5,8 @@ import com.betterSDA.model.entity.TeamEntity;
 import com.betterSDA.repo.TeamRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import static com.betterSDA.service.DataConverter.toDto;
+import static com.betterSDA.service.DataConverter.toEntity;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,18 +23,11 @@ public class TeamService {
 
 
     public void addTeam(Team team) {
-        teamRepo.save(TeamEntity.builder()
-                .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
-                .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
-                .build());
+        teamRepo.save(toEntity(team));
     }
 
     public void updateTeam(Team team) {
-        teamRepo.save(TeamEntity.builder()
-                .name(team.getName())
-                .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
-                .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
-                .build());
+        teamRepo.save(toEntity(team));
     }
 
     public void deleteTeamByIdName (String name) {
@@ -48,7 +43,7 @@ public class TeamService {
 
         Optional<TeamEntity> teamEntity = teamRepo.findById(id);
 
-        if (teamEntity.isPresent()) return DataConverter.toDto(teamEntity.get());
+        if (teamEntity.isPresent()) return toDto(teamEntity.get());
 
         throw new NoSuchElementException("No team found in database");
 

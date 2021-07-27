@@ -5,6 +5,8 @@ import com.betterSDA.model.entity.AddressEntity;
 import com.betterSDA.repo.AddressRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import static com.betterSDA.service.DataConverter.toDto;
+import static com.betterSDA.service.DataConverter.toEntity;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -18,22 +20,11 @@ public class AddressService {
     private final AddressRepo addressRepo;
 
     public void addAddress(Address address) {
-        addressRepo.save(AddressEntity.builder()
-                .street(address.getStreet())
-                .city(address.getCity())
-                .zipCode(address.getZipCode())
-                .country(address.getCountry())
-                .build());
+        addressRepo.save(toEntity(address));
     }
 
     public void updateAddress(Address address) {
-        addressRepo.save(AddressEntity.builder()
-                .street(address.getStreet())
-                .city(address.getCity())
-                .zipCode(address.getZipCode())
-                .country(address.getCountry())
-                .id(address.getId())
-                .build());
+        addressRepo.save(toEntity(address));
     }
 
     public void deleteAddressById (Long id) {
@@ -51,7 +42,7 @@ public class AddressService {
 
         Optional<AddressEntity> addressEntity = addressRepo.findById(id);
 
-        if (addressEntity.isPresent()) return DataConverter.toDto(addressEntity.get());
+        if (addressEntity.isPresent()) return toDto(addressEntity.get());
 
         throw new NoSuchElementException("No address found in database");
 
