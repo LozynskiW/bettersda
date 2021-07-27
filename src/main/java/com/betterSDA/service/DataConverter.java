@@ -2,9 +2,11 @@ package com.betterSDA.service;
 
 import com.betterSDA.model.RoleEnum;
 import com.betterSDA.model.dto.Address;
+import com.betterSDA.model.dto.Office;
 import com.betterSDA.model.dto.Person;
 import com.betterSDA.model.dto.Team;
 import com.betterSDA.model.entity.AddressEntity;
+import com.betterSDA.model.entity.OfficeEntity;
 import com.betterSDA.model.entity.PersonEntity;
 import com.betterSDA.model.entity.TeamEntity;
 
@@ -94,6 +96,20 @@ public class DataConverter {
                 .name(team.getName())
                 .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
                 .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
+                .build();
+    }
+
+    public static Office toDto(OfficeEntity officeEntity) {
+        return Office.builder()
+                .name(officeEntity.getName())
+                .admins(toDto(officeEntity.getAdmins()))
+                .build();
+    }
+
+    public static OfficeEntity toEntity(Office office) {
+        return OfficeEntity.builder()
+                .name(office.getName())
+                .admins(toEntity(office.getAdmins()))
                 .build();
     }
 

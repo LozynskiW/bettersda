@@ -1,12 +1,17 @@
 package com.betterSDA.model.dto;
 
+import lombok.*;
+
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Office {
 
     private Long id;
     private String name;
-    private String phoneNumber;
-    private String email;
-    private Set<Person> admins;
+    private Person admins;
 }

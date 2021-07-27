@@ -18,9 +18,7 @@ public class OfficeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String phoneNumber;
-    private String email;
 
-    @OneToMany
-    private Set<PersonEntity> admins;
+    @OneToOne
+    private PersonEntity admins;
 }
