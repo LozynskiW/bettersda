@@ -8,7 +8,6 @@ import com.betterSDA.model.entity.AddressEntity;
 import com.betterSDA.model.entity.PersonEntity;
 import com.betterSDA.model.entity.TeamEntity;
 
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DataConverter {
