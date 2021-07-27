@@ -2,6 +2,7 @@ package com.betterSDA.model.entity;
 
 import com.betterSDA.model.ExpirationDate;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
@@ -17,8 +18,8 @@ import java.util.Set;
 public class TeamEntity {
 
     @Id
-    @GeneratedValue()
-    @NotNull
+    @GenericGenerator(name = "team_name", strategy = "com.betterSDA.service.MyGenerator")
+    @GeneratedValue(generator = "team_name")
     private String name;
 
     @OneToMany

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BetterSDA</title>
+    <link th:href="nav.css" rel="stylesheet"/>
+</head>
+<body>
+
+    <div th:fragment="navigation">
+        <ul>
+            <li><a th:href="@{/}">Strona główna</a></li>
+            <li><a th:href="@{/user}">Dodaj użytkownika</a></li>
+            <li><a th:href="@{/contact}">Kontakt</a></li>
+            <li><a th:href="@{/login}">Zaloguj się</a></li>
+        </ul>
+    </div>
+
+    <div th:fragment="footer">
+        <h3>Copyright 2021 by SDA - ZDJavapol62</h3>
+    </div>
+
+
+
+
+</body>
+</html>
