@@ -1,5 +1,6 @@
 package com.betterSDA.service;
 
+import com.betterSDA.model.RoleEnum;
 import com.betterSDA.model.dto.Address;
 import com.betterSDA.model.dto.Person;
 import com.betterSDA.model.dto.Team;
@@ -14,27 +15,49 @@ public class DataConverter {
 
     public static PersonEntity toEntity(Person person) {
 
-        return PersonEntity.builder()
-                .id(person.getId())
-                .firstName(person.getFirstName())
-                .lastName(person.getLastName())
-                .email(person.getEmail())
-                .addressEntity(toEntity(person.getAddress()))
-                .teamID(person.getTeamID())
-                .phoneNumber(person.getPhoneNumber())
-                .build();
+        PersonEntity personEntity = new PersonEntity();
+
+        try {
+            personEntity.setId(person.getId());
+            personEntity.setEmail(person.getEmail());
+            personEntity.setFirstName(person.getFirstName());
+            personEntity.setLastName(person.getLastName());
+            personEntity.setPhoneNumber(person.getPhoneNumber());
+        } catch (NullPointerException ex) {
+            System.err.println("No byczku coś się zepsuło");
+        }
+        if (person.getTeamID() != null) personEntity.setTeamID(person.getTeamID());
+        else personEntity.setTeamID("Brak grupy");
+        if (person.getAddress() != null) personEntity.setAddressEntity(toEntity(person.getAddress()));
+        else personEntity.setAddressEntity(null);
+        if (person.getRole() == RoleEnum.ADMIN || person.getRole() == RoleEnum.TEACHER || person.getRole() == RoleEnum.USER) personEntity.setRole(person.getRole());
+        else personEntity.setRole(RoleEnum.USER);
+
+        return personEntity;
     }
 
     public static Person toDto(PersonEntity personEntity) {
-        return Person.builder()
-                .id(personEntity.getId())
-                .firstName(personEntity.getFirstName())
-                .lastName(personEntity.getLastName())
-                .email(personEntity.getEmail())
-                .address(toDto(personEntity.getAddressEntity()))
-                .teamID(personEntity.getTeamID())
-                .phoneNumber(personEntity.getPhoneNumber())
-                .build();
+
+        Person person = new Person();
+
+        try {
+            person.setId(personEntity.getId());
+            person.setEmail(personEntity.getEmail());
+            person.setFirstName(personEntity.getFirstName());
+            person.setLastName(personEntity.getLastName());
+            person.setPhoneNumber(personEntity.getPhoneNumber());
+        } catch (NullPointerException ex) {
+            System.err.println("No byczku coś się zepsuło");
+        }
+        if (personEntity.getTeamID() != null) person.setTeamID(personEntity.getTeamID());
+        else person.setTeamID("Brak grupy");
+        if (personEntity.getAddressEntity() != null) person.setAddress(toDto(personEntity.getAddressEntity()));
+        else person.setAddress(null);
+        if (personEntity.getRole() == RoleEnum.ADMIN || personEntity.getRole() == RoleEnum.TEACHER || personEntity.getRole() == RoleEnum.USER) person.setRole(personEntity.getRole());
+        else person.setRole(RoleEnum.USER);
+
+        return person;
+
     }
 
     public static Address toDto(AddressEntity addressEntity) {
