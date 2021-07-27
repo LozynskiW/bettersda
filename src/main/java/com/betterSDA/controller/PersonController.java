@@ -6,6 +6,8 @@ import com.betterSDA.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -17,31 +19,66 @@ public class PersonController {
 
     private final PersonService personService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addPerson(@Valid @RequestBody Person person) {
-        personService.addPerson(person);
-    }
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void addPerson(@Valid @RequestBody Person person) {
+//        personService.addPerson(person);
+//    }
+//
+//    @PutMapping
+//    public void updatePerson(@Valid @RequestBody Person person) {
+//        personService.updatePerson(person);
+//    }
+//
+//    @DeleteMapping
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void deletePersonById(@RequestParam Long id) {
+//        personService.deletePersonById(id);
+//    }
+//
+//    @GetMapping
+//    public List<Person> getAllPersons() {
+//        return personService.getAllPerson();
+//    }
+//
+//    @GetMapping({"/{id}"})
+//    public Person getPersonById(@PathVariable Long id) {
+//
+//        return personService.getPersonById(id);
+//    }
 
-    @PutMapping
-    public void updatePerson(@Valid @RequestBody Person person) {
-        personService.updatePerson(person);
-    }
 
-    @DeleteMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePersonById(@RequestParam Long id) {
-        personService.deletePersonById(id);
-    }
+    //..............................................................
 
     @GetMapping
-    public List<Person> getAllPersons() {
-        return personService.getAllPerson();
+    public ModelAndView displayAddPersonPage() {
+        ModelAndView mav = new ModelAndView("addPerson");
+        mav.addObject("person", new Person());
+        return mav;
     }
 
-    @GetMapping({"/{id}"})
-    public Person getPersonById(@PathVariable Long id) {
+    @GetMapping("/edit")
+    public ModelAndView displayEditPersonPage(@RequestParam Long id) {
+        ModelAndView mav = new ModelAndView("addPerson");
+        mav.addObject("person", personService.getPersonById(id));
+        return mav;
+    }
 
-        return personService.getPersonById(id);
+    @PostMapping
+    public RedirectView handleAddPerson(@ModelAttribute("person") Person person) {
+        if (person.getId() == null) {
+            personService.addPerson(person);
+        } else {
+            personService.updatePerson(person);
+        }
+
+        return new RedirectView("/api");
+    }
+
+    @GetMapping("/all")
+    public ModelAndView displayAllPersons() {
+        ModelAndView mav = new ModelAndView("persons");
+        mav.addObject("persons", personService.getAllPerson());
+        return mav;
     }
 }

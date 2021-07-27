@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Bet app</title>
+    <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div th:replace="fragments/utils.html :: navigation"/>
+
+    <h3>Dodaj zakład:</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <form method="post" th:object="${bet}" th:action="@{/bet}">
+                    <div class="mb-3">
+                        <label for="matchInput" class="form-label">Wybierz mecz:</label>
+                        <select type="text" th:field="*{matchId}" class="form-select form-select-sm" aria-label=".form-select-sm example" id="matchInput">
+                            <option th:each="option : ${matches}" th:value="${option.id}"><span th:text="${option.label}"></span></option>
+                        </select>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="firstTeamInput" class="form-label">Wynik gospodarza:</label>
+                                    <input type="number" th:field="*{firstTeamResult}" class="form-control" id="firstTeamInput">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="secondTeamInput" class="form-label">Wynik gościa:</label>
+                                    <input type="number" th:field="*{secondTeamResult}" class="form-control" id="secondTeamInput">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Zapisz" class="btn btn-primary"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/utils.html :: footer"/>
+</body>
+</html>

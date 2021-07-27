@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bet app</title>
+</head>
+<body>
+    <div th:fragment="table">
+        <h3>Brak użytkowników</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <td>Lp</td>
+                <td>Mecz</td>
+                <td>Czas rozpoczęcia</td>
+                <td>Użytkownik</td>
+                <td>Wynik</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="person, iterator: ${persons}" th:class="${iterator.even ? 'even' : 'odd'}">
+                <td><span th:text="${iterator.count}"></span></td>
+                <td><span th:text="${person.firstName + '-' + person.lastName}"></span></td>
+                <td><span th:text="${person.phoneNumber}"></span></td>
+                <td><span th:text="${person.email}"></span></td>
+                <td><span th:text="${person.email}"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

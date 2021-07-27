@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Bet app</title>
+    <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div th:replace="fragments/utils.html :: navigation"/>
+    <h3>Dodaj użytkownika:</h3>
+
+    <form method="post" th:object="${person}" th:action="@{/person}">
+        <input type="hidden" th:field="*{id}" th:value="${person.id}"/>
+        Imię: <input type="text" th:field="*{firstName}" th:value="${person.firstName}"/><br>
+        Nazwisko: <input type="text" th:field="*{lastName}" th:value="${person.lastName}"/><br>
+        Email: <input type="email" th:field="*{email}"
+                      th:value="${person.email}"/><br>
+        Numer Telefonu: <input type="text" th:field="*{phoneNumber}"
+                      th:value="${person.phoneNumber}"/><br>
+        Role: <select th:field="*{role}" th:value="${person.role}">
+                <option value="TEACHER">Teacher</option>
+                <option value="USER">User</option>
+            </select><br>
+        <input type="submit" value="Zapisz"/>
+    </form>
+
+    <div th:replace="fragments/utils.html :: footer"/>
+</body>
+</html>
