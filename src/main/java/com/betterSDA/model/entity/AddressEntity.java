@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class AddressEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String street;
     private String city;

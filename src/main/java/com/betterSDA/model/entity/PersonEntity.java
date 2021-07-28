@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 public class PersonEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "First name must not be blank")
