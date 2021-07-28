@@ -19,7 +19,7 @@ public class Team {
     //To do
     //private ExpirationDate expirationDate;
 
-    private Set<Person> studentSet;
+    private Set<Person> studentSet = new HashSet<>();
 
     private Set<Person> teacherSet;
 }

@@ -1,6 +1,7 @@
 package com.betterSDA.model.dto;
 
 import com.betterSDA.model.RoleEnum;
+import com.betterSDA.model.validator.AddressExistence;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -32,6 +33,7 @@ public class Person {
     private String email;
 
     @com.betterSDA.model.validator.Address
+    @AddressExistence
     private Address address = new Address();
 
     private String teamID = "WaitingRoom";

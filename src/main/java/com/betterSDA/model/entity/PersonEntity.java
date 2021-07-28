@@ -35,8 +35,6 @@ public class PersonEntity {
     private RoleEnum role;
 
     @OneToOne
-    @Value("{default: null}")
-    @Address
     protected AddressEntity addressEntity = new AddressEntity();
 
     private String teamID;
