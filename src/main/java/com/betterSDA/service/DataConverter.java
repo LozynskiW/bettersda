@@ -101,6 +101,7 @@ public class DataConverter {
 
     public static Office toDto(OfficeEntity officeEntity) {
         return Office.builder()
+                .id(officeEntity.getId())
                 .name(officeEntity.getName())
                 .admins(toDto(officeEntity.getAdmins()))
                 .build();
@@ -108,6 +109,7 @@ public class DataConverter {
 
     public static OfficeEntity toEntity(Office office) {
         return OfficeEntity.builder()
+                .id(office.getId())
                 .name(office.getName())
                 .admins(toEntity(office.getAdmins()))
                 .build();

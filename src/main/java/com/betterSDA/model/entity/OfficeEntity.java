@@ -12,11 +12,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 public class OfficeEntity {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
     @OneToOne
