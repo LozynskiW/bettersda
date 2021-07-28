@@ -81,8 +81,6 @@ public class DataConverter {
                 .build();
     }
 
-//GÓWNO NIE DZIAŁA MI MÓZG I NIE WIEM JAK TO PRZEKONWERTOWAĆ... LECE NA OGNISKO JUTRO TO ZROBIĘ
-// ;)
     public static Team toDto(TeamEntity teamEntity) {
         return Team.builder()
                 .name(teamEntity.getName())

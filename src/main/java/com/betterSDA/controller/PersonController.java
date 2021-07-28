@@ -45,8 +45,6 @@ public class PersonController {
         personService.addPerson(person);
     }
 
-
-
     @PutMapping
     public void updatePerson(@Valid @RequestBody Person person) {
         personService.updatePerson(person);
@@ -69,6 +67,7 @@ public class PersonController {
         return personService.getPersonById(id);
     }
 
+    //do service, kod niebezpieczny :D
     private Long personIdGenerator() {
 
         List<Person> personList = personService.getAllPerson();

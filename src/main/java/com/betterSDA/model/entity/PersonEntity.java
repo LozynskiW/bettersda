@@ -34,6 +34,7 @@ public class PersonEntity {
     private RoleEnum role;
 
     @OneToOne
+    //@Embedded To Do
     protected AddressEntity addressEntity = new AddressEntity();
 
     private String teamID;

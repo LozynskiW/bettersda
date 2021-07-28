@@ -45,6 +45,7 @@ public class DemoApplication {
 		return new ModelAndView("main");
 	}
 
+	//UUID!, id na sztywno - słaby pomysł
 	public void createOffice(){
 
 		Address address = Address.builder()
@@ -81,7 +82,6 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-
 
 	}
 }
