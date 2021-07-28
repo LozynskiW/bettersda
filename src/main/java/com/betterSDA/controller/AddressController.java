@@ -17,9 +17,7 @@ public class AddressController {
 
     private final AddressService addressService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addAddress(@Valid @RequestBody Address address) {
+    public void addAddress(@Valid Address address) {
         addressService.addAddress(address);
     }
 

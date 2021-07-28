@@ -26,11 +26,18 @@ public class PersonController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addPerson(@Valid @RequestBody Person person) {
+
         if (person.getAddress().getId() == null) {
+
+            Long newId = this.personIdGenerator();
+
+            person.getAddress().setId(newId);
+            person.setId(newId);
+
             addressService.addAddress(person.getAddress());
-            Address address = addressService.getAllAddresses().get(0);
-            person.setAddress(address);
+
         }
+
         personService.addPerson(person);
     }
 
@@ -55,6 +62,23 @@ public class PersonController {
 
         return personService.getPersonById(id);
     }
+
+    private Long personIdGenerator() {
+
+        List<Person> personList = personService.getAllPerson();
+        Long newId = 1L;
+
+        for (Person person : personList) {
+            if (person.getId() > newId) {
+                break;
+            }
+            if (person.getId() <= newId) {
+                newId++;
+            }
+        }
+        return newId;
+    }
+
 //
 //
 //    //..............................................................
