@@ -4,6 +4,7 @@ import com.betterSDA.model.RoleEnum;
 import com.betterSDA.model.dto.Office;
 import com.betterSDA.model.dto.Person;
 import com.betterSDA.service.OfficeService;
+import com.betterSDA.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,8 @@ import javax.validation.Valid;
 public class OfficeController {
 
     private final OfficeService officeService;
+    private final PersonService personService;
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
