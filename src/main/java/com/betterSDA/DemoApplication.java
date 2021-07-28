@@ -11,27 +11,36 @@ import com.betterSDA.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @SpringBootApplication
 @RestController
 @RequiredArgsConstructor
+@Component
 public class DemoApplication {
 
 	private final PersonService personService;
 	private final AddressService addressService;
 	private final OfficeService officeService;
 
-	@GetMapping("/")
-	public ModelAndView displayMainPage() {
 
+	@EventListener
+	public void onApplicationLoad(ApplicationReadyEvent event) {
 
 		try {
 			Office office = officeService.getOffice();
 		} catch (IndexOutOfBoundsException ex) {
 			createOffice();
 		}
+
+	}
+
+	@GetMapping("/")
+	public ModelAndView displayMainPage() {
 
 		return new ModelAndView("main");
 	}
