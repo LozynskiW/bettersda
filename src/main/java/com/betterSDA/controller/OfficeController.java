@@ -17,8 +17,6 @@ public class OfficeController {
 
     private final OfficeService officeService;
 
-
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addAddress() {
@@ -33,5 +31,11 @@ public class OfficeController {
                         .address(null)
                         .build())
                 .build());
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Office getOffice() {
+        return officeService.getOffice();
     }
 }

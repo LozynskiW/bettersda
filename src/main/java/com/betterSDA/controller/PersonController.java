@@ -1,6 +1,5 @@
 package com.betterSDA.controller;
 
-import com.betterSDA.model.dto.Address;
 import com.betterSDA.model.dto.Person;
 
 import com.betterSDA.service.AddressService;
@@ -8,11 +7,8 @@ import com.betterSDA.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
