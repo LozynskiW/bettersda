@@ -20,22 +20,6 @@ public class OfficeController {
     private final PersonService personService;
 
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addAddress() {
-        officeService.addOffice(Office.builder()
-                .name("SDA")
-                .admins(Person.builder()
-                        .role(RoleEnum.ADMIN)
-                        .email("sda@gmail.com")
-                        .firstName("Software")
-                        .lastName("Academy")
-                        .phoneNumber("997997997")
-                        .address(null)
-                        .build())
-                .build());
-    }
-
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Office getOffice() {

@@ -1,13 +1,8 @@
 package com.betterSDA.controller;
 
-import com.betterSDA.model.Country;
-import com.betterSDA.model.RoleEnum;
-import com.betterSDA.model.dto.Address;
-import com.betterSDA.model.dto.Office;
 import com.betterSDA.model.dto.Person;
 
 import com.betterSDA.service.AddressService;
-import com.betterSDA.service.OfficeService;
 import com.betterSDA.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -27,23 +21,23 @@ public class PersonController {
     private final PersonService personService;
     private final AddressService addressService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addPerson(@Valid @RequestBody Person person) {
-
-        if (person.getAddress().getId() == null) {
-
-            Long newId = this.personIdGenerator();
-
-            person.getAddress().setId(newId);
-            person.setId(newId);
-
-            addressService.addAddress(person.getAddress());
-
-        }
-
-        personService.addPerson(person);
-    }
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void addPerson(@Valid @RequestBody Person person) {
+//
+//        if (person.getAddress().getId() == null) {
+//
+//            Long newId = this.personIdGenerator();
+//
+//            person.getAddress().setId(newId);
+//            person.setId(newId);
+//
+//            addressService.addAddress(person.getAddress());
+//
+//        }
+//
+//        personService.addPerson(person);
+//    }
 
     @PutMapping
     public void updatePerson(@Valid @RequestBody Person person) {
@@ -56,10 +50,10 @@ public class PersonController {
         personService.deletePersonById(id);
     }
 
-    @GetMapping
-    public List<Person> getAllPersons() {
-        return personService.getAllPerson();
-    }
+//    @GetMapping
+//    public List<Person> getAllPersons() {
+//        return personService.getAllPerson();
+//    }
 
     @GetMapping({"/{id}"})
     public Person getPersonById(@PathVariable Long id) {
@@ -88,30 +82,30 @@ public class PersonController {
 //
 //    //..............................................................
 //
-//    @GetMapping
-//    public ModelAndView displayAddPersonPage() {
-//        ModelAndView mav = new ModelAndView("addPerson");
-//        mav.addObject("person", new Person());
-//        return mav;
-//    }
-//
-//    @GetMapping("/edit")
-//    public ModelAndView displayEditPersonPage(@RequestParam Long id) {
-//        ModelAndView mav = new ModelAndView("addPerson");
-//        mav.addObject("person", personService.getPersonById(id));
-//        return mav;
-//    }
-//
-//    @PostMapping
-//    public RedirectView handleAddPerson(@ModelAttribute("person") Person person) {
-//        if (person.getId() == null) {
-//            personService.addPerson(person);
-//        } else {
-//            personService.updatePerson(person);
-//        }
-//
-//        return new RedirectView("/api");
-//    }
+    @GetMapping
+    public ModelAndView displayAddPersonPage() {
+        ModelAndView mav = new ModelAndView("addPerson");
+        mav.addObject("person", new Person());
+        return mav;
+    }
+
+    @GetMapping("/edit")
+    public ModelAndView displayEditPersonPage(@RequestParam Long id) {
+        ModelAndView mav = new ModelAndView("addPerson");
+        mav.addObject("person", personService.getPersonById(id));
+        return mav;
+    }
+
+    @PostMapping("/add")
+    public RedirectView handleAddPerson(@ModelAttribute("person") Person person) {
+        if (person.getId() == null) {
+            personService.addPerson(person);
+        } else {
+            personService.updatePerson(person);
+        }
+
+        return new RedirectView("/");
+    }
 //
 //    @GetMapping("/all")
 //    public ModelAndView displayAllPersons() {

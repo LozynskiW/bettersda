@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Bet app</title>
-    <link th:href="@{/css/nav.css}" rel="stylesheet"/>
+    <link th:href="@{/css/navigation.css}" rel="stylesheet"/>
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div th:replace="fragments/utils.html :: navigation"/>
+    <div th:replace="fragments/utils.html"/>
     <h3>Dodaj użytkownika:</h3>
 
     <form method="post" th:object="${person}" th:action="@{/person}">
@@ -26,6 +26,6 @@
         <input type="submit" value="Zapisz"/>
     </form>
 
-    <div th:replace="fragments/utils.html :: footer"/>
+    <script src="fragments/nav.js"></script>
 </body>
 </html>
