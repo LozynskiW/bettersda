@@ -2,9 +2,11 @@ package com.betterSDA.model.entity;
 
 import com.betterSDA.model.dto.Team;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Builder
@@ -16,7 +18,10 @@ import java.util.Set;
 public class OfficeEntity {
 
     @Id
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     private String name;
 

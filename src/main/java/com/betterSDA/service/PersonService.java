@@ -12,6 +12,7 @@ import static com.betterSDA.service.DataConverter.toEntity;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class PersonService {
         personRepo.save(toEntity(person));
     }
 
-    public void deletePersonById (Long id) {
+    public void deletePersonById (UUID id) {
 
         personRepo.deleteById(id);
     }
@@ -37,7 +38,7 @@ public class PersonService {
         return personRepo.findAll().stream().map(DataConverter::toDto).collect(Collectors.toList());
     }
 
-    public Person getPersonById(Long id) {
+    public Person getPersonById(UUID id) {
 
         Optional<PersonEntity> personEntity = personRepo.findById(id);
 

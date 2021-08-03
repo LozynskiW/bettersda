@@ -2,7 +2,6 @@ package com.betterSDA.controller;
 
 import com.betterSDA.model.dto.Person;
 
-import com.betterSDA.service.AddressService;
 import com.betterSDA.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +19,6 @@ import java.util.List;
 public class PersonController {
 
     private final PersonService personService;
-    private final AddressService addressService;
 
 //    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
@@ -44,9 +43,9 @@ public class PersonController {
         personService.updatePerson(person);
     }
 
-    @DeleteMapping
+    @DeleteMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePersonById(@RequestParam Long id) {
+    public void deletePersonById(@RequestParam UUID id) {
         personService.deletePersonById(id);
     }
 
@@ -56,30 +55,11 @@ public class PersonController {
 //    }
 
     @GetMapping({"/{id}"})
-    public Person getPersonById(@PathVariable Long id) {
+    public Person getPersonById(@PathVariable UUID id) {
 
         return personService.getPersonById(id);
     }
 
-    //do service, kod niebezpieczny :D
-    private Long personIdGenerator() {
-
-        List<Person> personList = personService.getAllPerson();
-        Long newId = 1L;
-
-        for (Person person : personList) {
-            if (person.getId() > newId) {
-                break;
-            }
-            if (person.getId() <= newId) {
-                newId++;
-            }
-        }
-        return newId;
-    }
-
-//
-//
 //    //..............................................................
 //
     @GetMapping
@@ -90,14 +70,14 @@ public class PersonController {
     }
 
     @GetMapping("/edit")
-    public ModelAndView displayEditPersonPage(@RequestParam Long id) {
+    public ModelAndView displayEditPersonPage(@RequestParam UUID id) {
         ModelAndView mav = new ModelAndView("addPerson");
         mav.addObject("person", personService.getPersonById(id));
         return mav;
     }
 
     @PostMapping("/add")
-    public RedirectView handleAddPerson(@ModelAttribute("person") Person person) {
+    public RedirectView handleAddPerson(@Valid @RequestBody Person person) {
         if (person.getId() == null) {
             personService.addPerson(person);
         } else {
@@ -105,6 +85,11 @@ public class PersonController {
         }
 
         return new RedirectView("/");
+    }
+
+    @GetMapping("/test/all")
+    public List<Person> testGetAllPerson() {
+        return personService.getAllPerson();
     }
 //
 //    @GetMapping("/all")

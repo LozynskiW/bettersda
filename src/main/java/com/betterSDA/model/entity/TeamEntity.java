@@ -33,10 +33,12 @@ public class TeamEntity {
                     @Parameter(name = MyGenerator.NUMBER_FORMAT_PARAMETER, value = "%02d") })
     private String name;
 
-    @OneToMany
-    private Set<PersonEntity> studentEntitySet;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "persons_id",referencedColumnName="persons_id")
+    private Set<PersonEntity> studentEntitySet = new HashSet<>();
 
-    @OneToMany
-    private Set<PersonEntity> teacherEntitySet;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "persons_id",referencedColumnName="persons_id")
+    private Set<PersonEntity> teacherEntitySet = new HashSet<>();
 
 }

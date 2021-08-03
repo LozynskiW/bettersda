@@ -1,14 +1,14 @@
 package com.betterSDA.model.entity;
 
 import com.betterSDA.model.RoleEnum;
-import com.betterSDA.model.dto.Team;
-import com.betterSDA.model.validator.Address;
+import com.betterSDA.model.dto.Address;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Entity
 @Builder
@@ -17,10 +17,15 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
+@Table(name = "persons")
 public class PersonEntity {
 
     @Id
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id")
+    private UUID id;
 
     @NotBlank(message = "First name must not be blank")
     private String firstName;
@@ -31,11 +36,10 @@ public class PersonEntity {
     @NotBlank
     private String email;
     @NotNull
-    private RoleEnum role;
+    private RoleEnum role = RoleEnum.USER;
 
-    @OneToOne
-    //@Embedded To Do
-    protected AddressEntity addressEntity = new AddressEntity();
+    @Embedded
+    private Address address;
 
     private String teamID;
 }

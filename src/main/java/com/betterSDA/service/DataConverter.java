@@ -27,10 +27,12 @@ public class DataConverter {
         } catch (NullPointerException ex) {
             System.err.println("No byczku coś się zepsuło");
         }
+
         if (person.getTeamID() != null) personEntity.setTeamID(person.getTeamID());
         else personEntity.setTeamID("Brak grupy");
-        if (person.getAddress() != null) personEntity.setAddressEntity(toEntity(person.getAddress()));
-        else personEntity.setAddressEntity(null);
+
+        if (person.getAddress() != null) personEntity.setAddress(person.getAddress());
+
         if (person.getRole() == RoleEnum.ADMIN || person.getRole() == RoleEnum.TEACHER || person.getRole() == RoleEnum.USER) personEntity.setRole(person.getRole());
         else personEntity.setRole(RoleEnum.USER);
 
@@ -52,7 +54,7 @@ public class DataConverter {
         }
         if (personEntity.getTeamID() != null) person.setTeamID(personEntity.getTeamID());
         else person.setTeamID("Brak grupy");
-        if (personEntity.getAddressEntity() != null) person.setAddress(toDto(personEntity.getAddressEntity()));
+        if (personEntity.getAddress() != null) person.setAddress(personEntity.getAddress());
         else person.setAddress(null);
         if (personEntity.getRole() == RoleEnum.ADMIN || personEntity.getRole() == RoleEnum.TEACHER || personEntity.getRole() == RoleEnum.USER) person.setRole(personEntity.getRole());
         else person.setRole(RoleEnum.USER);
@@ -61,40 +63,36 @@ public class DataConverter {
 
     }
 
-    public static Address toDto(AddressEntity addressEntity) {
-        return Address.builder()
-                .id(addressEntity.getId())
-                .street(addressEntity.getStreet())
-                .city(addressEntity.getCity())
-                .zipCode(addressEntity.getZipCode())
-                .country(addressEntity.getCountry())
-                .build();
-    }
-
-    public static AddressEntity toEntity(Address address) {
-        return AddressEntity.builder()
-                .id(address.getId())
-                .street(address.getStreet())
-                .city(address.getCity())
-                .zipCode(address.getZipCode())
-                .country(address.getCountry())
-                .build();
-    }
-
     public static Team toDto(TeamEntity teamEntity) {
-        return Team.builder()
-                .name(teamEntity.getName())
-                .teacherSet(teamEntity.getTeacherEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
-                .studentSet(teamEntity.getStudentEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
-                .build();
+        try {
+            return Team.builder()
+                    .name(teamEntity.getName())
+                    .teacherSet(teamEntity.getTeacherEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
+                    .studentSet(teamEntity.getStudentEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
+                    .build();
+
+        } catch (Exception e) {
+            return Team.builder()
+                    .name(teamEntity.getName())
+                    .build();
+        }
+
     }
 
     public static TeamEntity toEntity(Team team) {
-        return TeamEntity.builder()
-                .name(team.getName())
-                .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
-                .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
-                .build();
+        try {
+            return TeamEntity.builder()
+                    .name(team.getName())
+                    .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
+                    .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
+                    .build();
+
+        } catch (Exception e) {
+
+            return TeamEntity.builder()
+                    .name(team.getName())
+                    .build();
+        }
     }
 
     public static Office toDto(OfficeEntity officeEntity) {

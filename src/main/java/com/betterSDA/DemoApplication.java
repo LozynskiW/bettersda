@@ -5,7 +5,6 @@ import com.betterSDA.model.RoleEnum;
 import com.betterSDA.model.dto.Address;
 import com.betterSDA.model.dto.Office;
 import com.betterSDA.model.dto.Person;
-import com.betterSDA.service.AddressService;
 import com.betterSDA.service.OfficeService;
 import com.betterSDA.service.PersonService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.UUID;
+
 @SpringBootApplication
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class DemoApplication {
 
 	private final PersonService personService;
-	private final AddressService addressService;
 	private final OfficeService officeService;
 
 
@@ -45,35 +45,29 @@ public class DemoApplication {
 		return new ModelAndView("main");
 	}
 
-	//UUID!, id na sztywno - słaby pomysł
 	public void createOffice(){
 
-		Address address = Address.builder()
-				.country(Country.POLAND)
-				.zipCode("11-500")
-				.city("Warszawa")
-				.street("Złota")
-				.id(0L)
-				.build();
-
-		addressService.addAddress(address);
+		Address address = new Address();
+		address.setCity("Warszawa");
+		address.setCountry(Country.POLAND);
+		address.setZipCode("11-500");
+		address.setStreet("Złota 44");
 
 		Person person = Person.builder()
+				.id(UUID.randomUUID())
 				.phoneNumber("123123123")
-				.id(0L)
 				.firstName("Software")
 				.lastName("Academy")
 				.role(RoleEnum.ADMIN)
 				.email("sda@academy.pl")
-				.address(addressService.getAddressById(0L))
+				.address(address) //źródło problemu - id nie zostało wygenerowane
 				.teamID("ADMINS")
 				.build();
 
 		personService.addPerson(person);
 
 		Office office = Office.builder()
-				.id(0L)
-				.admins(personService.getPersonById(0L))
+				.admins(personService.getAllPerson().get(0))
 				.name("SDA")
 				.build();
 

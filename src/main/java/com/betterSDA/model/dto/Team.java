@@ -21,5 +21,5 @@ public class Team {
 
     private Set<Person> studentSet = new HashSet<>();
 
-    private Set<Person> teacherSet;
+    private Set<Person> teacherSet = new HashSet<>();
 }

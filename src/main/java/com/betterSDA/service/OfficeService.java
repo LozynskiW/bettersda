@@ -23,4 +23,8 @@ public class OfficeService {
     public Office getOffice() {
         return toDto(officeRepo.findAll().get(0));
     }
+
+    public void deleteOfficeForTest() {
+        officeRepo.deleteAll();
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -45,6 +46,9 @@ public class TeamController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addTeam(@Valid @RequestBody Team team) {
+
+        System.out.println("CONTROLLER");
+        System.out.println(Arrays.toString(team.getTeacherSet().toArray()));
         teamService.addTeam(team);
     }
 

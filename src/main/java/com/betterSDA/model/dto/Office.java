@@ -3,6 +3,7 @@ package com.betterSDA.model.dto;
 import lombok.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import java.util.Set;
 @ToString
 public class Office {
 
-    private Long id;
+    private UUID id;
     private String name;
     private Person admins;
 }

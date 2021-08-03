@@ -1,13 +1,13 @@
 package com.betterSDA.model.dto;
 
 import com.betterSDA.model.RoleEnum;
-import com.betterSDA.model.validator.AddressExistence;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 //@inheritance !!!
 
 @NoArgsConstructor
@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class Person {
 
-    private Long id;
+    private UUID id;
     @NotBlank
     private String firstName;
 
@@ -33,13 +33,11 @@ public class Person {
     @Email
     private String email;
 
-    @com.betterSDA.model.validator.Address
-    @AddressExistence
     private Address address = new Address();
 
     private String teamID = "WaitingRoom";
 
     @NotNull
-    private RoleEnum role;
+    private RoleEnum role = RoleEnum.USER;
 
 }
