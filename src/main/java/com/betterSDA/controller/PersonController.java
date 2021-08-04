@@ -24,41 +24,41 @@ public class PersonController {
 //    @ResponseStatus(HttpStatus.CREATED)
 //    public void addPerson(@Valid @RequestBody Person person) {
 //
-//        if (person.getAddress().getId() == null) {
-//
-//            Long newId = this.personIdGenerator();
-//
-//            person.getAddress().setId(newId);
-//            person.setId(newId);
-//
-//            addressService.addAddress(person.getAddress());
-//
-//        }
+////        if (person.getAddress().getId() == null) {
+////
+////            Long newId = this.personIdGenerator();
+////
+////            person.getAddress().setId(newId);
+////            person.setId(newId);
+////
+////            addressService.addAddress(person.getAddress());
+////
+////        }
 //
 //        personService.addPerson(person);
 //    }
 
-    @PutMapping
-    public void updatePerson(@Valid @RequestBody Person person) {
-        personService.updatePerson(person);
-    }
-
-    @DeleteMapping()
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePersonById(@RequestParam UUID id) {
-        personService.deletePersonById(id);
-    }
-
-//    @GetMapping
-//    public List<Person> getAllPersons() {
-//        return personService.getAllPerson();
+//    @PutMapping
+//    public void updatePerson(@Valid @RequestBody Person person) {
+//        personService.updatePerson(person);
 //    }
-
-    @GetMapping({"/{id}"})
-    public Person getPersonById(@PathVariable UUID id) {
-
-        return personService.getPersonById(id);
-    }
+//
+//    @DeleteMapping()
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void deletePersonById(@RequestParam UUID id) {
+//        personService.deletePersonById(id);
+//    }
+//
+////    @GetMapping
+////    public List<Person> getAllPersons() {
+////        return personService.getAllPerson();
+////    }
+//
+//    @GetMapping({"/{id}"})
+//    public Person getPersonById(@PathVariable UUID id) {
+//
+//        return personService.getPersonById(id);
+//    }
 
 //    //..............................................................
 //
@@ -76,8 +76,8 @@ public class PersonController {
         return mav;
     }
 
-    @PostMapping("/add")
-    public RedirectView handleAddPerson(@Valid @RequestBody Person person) {
+    @PostMapping
+    public RedirectView handleAddPerson(@Valid Person person) {
         if (person.getId() == null) {
             personService.addPerson(person);
         } else {
@@ -91,11 +91,11 @@ public class PersonController {
     public List<Person> testGetAllPerson() {
         return personService.getAllPerson();
     }
-//
-//    @GetMapping("/all")
-//    public ModelAndView displayAllPersons() {
-//        ModelAndView mav = new ModelAndView("persons");
-//        mav.addObject("persons", personService.getAllPerson());
-//        return mav;
-//    }
+
+    @GetMapping("/all")
+    public ModelAndView displayAllPersons() {
+        ModelAndView mav = new ModelAndView("personsList");
+        mav.addObject("persons", personService.getAllPerson());
+        return mav;
+    }
 }

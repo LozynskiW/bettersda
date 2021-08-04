@@ -6,17 +6,17 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navigation">
         <div class="container-fluid">
-            <a class="navbar-brand" href="">Navbar</a>
+            <a class="navbar-brand" th:href="@{/}">BetterSDA</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/}">Strona główna</a>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link active" aria-current="page" th:href="@{/}">Strona główna</a>-->
+<!--                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link" href="#">Sprawdź grupy</a>
                     </li>
@@ -31,6 +31,7 @@
                             <li><a class="dropdown-item" href="#">Stwórz grupę</a></li>
                             <li><a class="dropdown-item" href="#">Przypisz rolę</a></li>
                             <li><a class="dropdown-item" th:href="@{/api/person}">Dodaj użytkownika</a></li>
+                            <li><a class="dropdown-item" th:href="@{/api/person/all}">Wyświetl użytkowników</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

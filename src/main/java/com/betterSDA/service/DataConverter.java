@@ -68,8 +68,8 @@ public class DataConverter {
         try {
             return Team.builder()
                     .name(teamEntity.getName())
-                    .teacherSet(teamEntity.getTeacherEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
-                    .studentSet(teamEntity.getStudentEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
+//                    .teacherSet(teamEntity.getTeacherEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
+//                    .studentSet(teamEntity.getStudentEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
                     .build();
 
         } catch (Exception e) {
@@ -84,8 +84,8 @@ public class DataConverter {
         try {
             return TeamEntity.builder()
                     .name(team.getName())
-                    .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
-                    .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
+//                    .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
+//                    .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
                     .build();
 
         } catch (Exception e) {
