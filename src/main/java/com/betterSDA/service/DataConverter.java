@@ -9,14 +9,19 @@ import com.betterSDA.model.entity.AddressEntity;
 import com.betterSDA.model.entity.OfficeEntity;
 import com.betterSDA.model.entity.PersonEntity;
 import com.betterSDA.model.entity.TeamEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import java.util.stream.Collectors;
 
 public class DataConverter {
 
+
+
     public static PersonEntity toEntity(Person person) {
 
         PersonEntity personEntity = new PersonEntity();
+
 
         try {
 
@@ -25,6 +30,8 @@ public class DataConverter {
             personEntity.setFirstName(person.getFirstName());
             personEntity.setLastName(person.getLastName());
             personEntity.setPhoneNumber(person.getPhoneNumber());
+            personEntity.setPassword(person.getPassword());
+
 
         } catch (NullPointerException ex) {
             System.err.println("No byczku coś się zepsuło");
@@ -50,6 +57,7 @@ public class DataConverter {
             person.setFirstName(personEntity.getFirstName());
             person.setLastName(personEntity.getLastName());
             person.setPhoneNumber(personEntity.getPhoneNumber());
+            person.setPassword(personEntity.getPassword());
 
         } catch (NullPointerException ex) {
             System.err.println("No byczku coś się zepsuło");
@@ -68,8 +76,8 @@ public class DataConverter {
         try {
             return Team.builder()
                     .name(teamEntity.getName())
-//                    .teacherSet(teamEntity.getTeacherEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
-//                    .studentSet(teamEntity.getStudentEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
+                    .teacherSet(teamEntity.getTeacherEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
+                    .studentSet(teamEntity.getStudentEntitySet().stream().map(DataConverter::toDto).collect(Collectors.toSet()))
                     .build();
 
         } catch (Exception e) {
@@ -84,8 +92,8 @@ public class DataConverter {
         try {
             return TeamEntity.builder()
                     .name(team.getName())
-//                    .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
-//                    .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
+                    .teacherEntitySet(team.getTeacherSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
+                    .studentEntitySet(team.getStudentSet().stream().map(DataConverter::toEntity).collect(Collectors.toSet()))
                     .build();
 
         } catch (Exception e) {

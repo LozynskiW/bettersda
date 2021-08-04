@@ -23,8 +23,8 @@ public class TeamService {
 
     public void addTeam(Team team) {
         TeamEntity teamEntity = toEntity(team);
-        teamEntity.setTeacherEntitySet(new ArrayList<>());
-        teamEntity.setStudentEntitySet(new ArrayList<>());
+        teamEntity.setTeacherEntitySet(new HashSet<>());
+        teamEntity.setStudentEntitySet(new HashSet<>());
         teamRepo.save(teamEntity);
     }
 

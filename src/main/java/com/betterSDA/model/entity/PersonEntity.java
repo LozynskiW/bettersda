@@ -39,5 +39,7 @@ public class PersonEntity {
     private RoleEnum role = RoleEnum.USER;
     @Embedded
     private Address address;
+    @NotBlank
+    private String password;
 
 }

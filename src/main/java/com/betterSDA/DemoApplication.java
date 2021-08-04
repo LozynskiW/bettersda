@@ -62,6 +62,7 @@ public class DemoApplication {
 				.email("sda@academy.pl")
 				.address(address) //źródło problemu - id nie zostało wygenerowane
 				.teamID("ADMINS")
+				.password("test")
 				.build();
 
 		personService.addPerson(person);
