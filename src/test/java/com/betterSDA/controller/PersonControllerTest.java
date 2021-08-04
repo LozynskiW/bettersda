@@ -215,7 +215,6 @@ public class PersonControllerTest {
                 .andDo(mvcResult -> System.out.println(mvcResult.getResponse().getContentAsString()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*").isArray())
-                .andExpect(jsonPath("$.[0].teamID").value("directors"))
                 .andExpect(jsonPath("$.[0].address.street").value(street));
 
     }

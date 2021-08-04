@@ -19,17 +19,17 @@ public class DataConverter {
         PersonEntity personEntity = new PersonEntity();
 
         try {
+
             personEntity.setId(person.getId());
             personEntity.setEmail(person.getEmail());
             personEntity.setFirstName(person.getFirstName());
             personEntity.setLastName(person.getLastName());
             personEntity.setPhoneNumber(person.getPhoneNumber());
+
         } catch (NullPointerException ex) {
             System.err.println("No byczku coś się zepsuło");
         }
 
-        if (person.getTeamID() != null) personEntity.setTeamID(person.getTeamID());
-        else personEntity.setTeamID("Brak grupy");
 
         if (person.getAddress() != null) personEntity.setAddress(person.getAddress());
 
@@ -44,16 +44,17 @@ public class DataConverter {
         Person person = new Person();
 
         try {
+
             person.setId(personEntity.getId());
             person.setEmail(personEntity.getEmail());
             person.setFirstName(personEntity.getFirstName());
             person.setLastName(personEntity.getLastName());
             person.setPhoneNumber(personEntity.getPhoneNumber());
+
         } catch (NullPointerException ex) {
             System.err.println("No byczku coś się zepsuło");
         }
-        if (personEntity.getTeamID() != null) person.setTeamID(personEntity.getTeamID());
-        else person.setTeamID("Brak grupy");
+
         if (personEntity.getAddress() != null) person.setAddress(personEntity.getAddress());
         else person.setAddress(null);
         if (personEntity.getRole() == RoleEnum.ADMIN || personEntity.getRole() == RoleEnum.TEACHER || personEntity.getRole() == RoleEnum.USER) person.setRole(personEntity.getRole());

@@ -116,7 +116,7 @@ public class TeamControllerTest {
     }
 
     @Test
-    public void shouldUpdateTeam() throws Exception {
+    public void shouldAddPersonsToTeam() throws Exception {
 
         //given
 
@@ -156,56 +156,45 @@ public class TeamControllerTest {
         personService.addPerson(student1);
         personService.addPerson(student2);
 
-        Team teamBeforeUpdate = Team.builder()
+        Team teamBeforeAddingPersons = Team.builder()
                 .name(teamName)
-                .teacherSet(personService.getAllPerson().stream().filter(p -> p.getRole().equals(RoleEnum.TEACHER)).collect(Collectors.toSet()))
-                .studentSet(personService.getAllPerson().stream().filter(p -> p.getRole().equals(RoleEnum.USER)).collect(Collectors.toSet()))
                 .build();
-
-        teacher1.setFirstName("Tomasz");
-        student1.setFirstName("Artur");
-        personService.updatePerson(student1);
-        personService.updatePerson(teacher1);
-
-        Team teamAfterUpdate = Team.builder()
-                .name(teamName)
-                .teacherSet(personService.getAllPerson().stream().filter(p -> p.getRole().equals(RoleEnum.TEACHER)).collect(Collectors.toSet()))
-                .studentSet(personService.getAllPerson().stream().filter(p -> p.getRole().equals(RoleEnum.USER)).collect(Collectors.toSet()))
-                .build();
-
-
-        //when
 
         mockMvc.perform(
                 post("/api/team")
-                        .content(toJson(teamBeforeUpdate))
+                        .content(toJson(teamBeforeAddingPersons))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON));
+
+        //when
 
         Team teamFromDB = teamService.getAllTeams().get(0);
-
-        System.out.println(teamFromDB.getTeacherSet());
-        System.out.println(Arrays.toString(teamFromDB.getTeacherSet().toArray()));
-        System.out.println(Arrays.toString(teamFromDB.getTeacherSet().toArray()));
+        Person personToAdd1 = personService.getAllPerson().get(0);
 
         mockMvc.perform(
-                put("/api/team")
-                        .content(toJson(teamAfterUpdate))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON));
+                put("/api/team/addToTeam", teamFromDB.getName())
+                        .content("{"+
+                                "teamId: "+ teamFromDB.getName() +","+
+                                "personId: "+ personToAdd1.getId().toString()
+                                +"}")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(mvcResult -> System.out.println(mvcResult.getRequest().getContentAsString()));
 
         //then
 
         teamFromDB = teamService.getAllTeams().get(0);
 
+        System.out.println(teamFromDB);
+
         System.out.println(Arrays.toString(teamFromDB.getTeacherSet().toArray()));
         System.out.println(Arrays.toString(teamFromDB.getTeacherSet().toArray()));
 
-        Assert.assertEquals(teamAfterUpdate.getName(), teamFromDB.getName());
-        Assert.assertTrue(teamAfterUpdate.getTeacherSet().contains(teacher1));
-        Assert.assertTrue(teamAfterUpdate.getTeacherSet().contains(teacher2));
-        Assert.assertTrue(teamAfterUpdate.getTeacherSet().contains(student1));
-        Assert.assertTrue(teamAfterUpdate.getTeacherSet().contains(student2));
+        Assert.assertEquals(teamFromDB.getName(), teamFromDB.getName());
+        Assert.assertTrue(teamFromDB.getTeacherSet().contains(teacher1));
+        Assert.assertTrue(teamFromDB.getTeacherSet().contains(teacher2));
+        Assert.assertTrue(teamFromDB.getTeacherSet().contains(student1));
+        Assert.assertTrue(teamFromDB.getTeacherSet().contains(student2));
 
     }
 

@@ -1,7 +1,9 @@
 package com.betterSDA.controller;
 
 import com.betterSDA.model.dto.Team;
+import com.betterSDA.model.entity.PersonEntity;
 import com.betterSDA.service.TeamService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -47,9 +50,14 @@ public class TeamController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addTeam(@Valid @RequestBody Team team) {
 
-        System.out.println("CONTROLLER");
-        System.out.println(Arrays.toString(team.getTeacherSet().toArray()));
         teamService.addTeam(team);
+    }
+
+    @PutMapping("/addUser")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addPersonToTeam(@Valid @RequestBody @JsonProperty UUID personId, @RequestBody String teamId) {
+
+        teamService.addPersonToTeam(teamId, personId);
     }
 
     @PutMapping

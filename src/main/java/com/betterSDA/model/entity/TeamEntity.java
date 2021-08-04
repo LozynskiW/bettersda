@@ -11,6 +11,7 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,7 +20,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter
 @Getter
-
+@ToString
+@Table(name = "teams")
 public class TeamEntity {
 
     @Id
@@ -34,11 +36,11 @@ public class TeamEntity {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "persons_id",referencedColumnName="persons_id")
-    private Set<PersonEntity> studentEntitySet = new HashSet<>();
+    @JoinColumn(name = "student_team_id", referencedColumnName="name")
+    private Set<PersonEntity> studentEntitySet;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "persons_id",referencedColumnName="persons_id")
-    private Set<PersonEntity> teacherEntitySet = new HashSet<>();
+    @JoinColumn(name = "teacher_team_id", referencedColumnName="name")
+    private Set<PersonEntity> teacherEntitySet;
 
 }
