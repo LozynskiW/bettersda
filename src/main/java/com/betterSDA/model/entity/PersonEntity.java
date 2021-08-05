@@ -40,5 +40,7 @@ public class PersonEntity {
     private String teamID="WaitingRoom";
     @Embedded
     private Address address;
+    @NotBlank
+    private String password;
 
 }

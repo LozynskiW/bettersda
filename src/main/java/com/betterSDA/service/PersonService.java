@@ -1,10 +1,12 @@
 package com.betterSDA.service;
 
-import com.betterSDA.model.dto.Address;
+import com.betterSDA.model.RoleEnum;
 import com.betterSDA.model.dto.Person;
 import com.betterSDA.model.entity.PersonEntity;
 import com.betterSDA.repo.PersonRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import static com.betterSDA.service.DataConverter.toDto;
 import static com.betterSDA.service.DataConverter.toEntity;
@@ -20,11 +22,19 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonRepo personRepo;
+    private final PasswordEncoder passwordEncoder;
 
     public void addPerson(Person person) {
-        System.out.println("addPerson");
-        System.out.println(person);
-        personRepo.save(toEntity(person));
+
+        personRepo.save(PersonEntity.builder()
+                .firstName(person.getFirstName())
+                .lastName(person.getLastName())
+                .email(person.getEmail())
+                .phoneNumber(person.getPhoneNumber())
+                .password(passwordEncoder.encode(person.getPassword()))
+                .role(RoleEnum.USER)
+                .build());
+
     }
 
     public void updatePerson(Person person) {

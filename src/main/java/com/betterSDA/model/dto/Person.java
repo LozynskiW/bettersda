@@ -40,4 +40,6 @@ public class Person {
     @NotNull
     private RoleEnum role = RoleEnum.USER;
 
+    private String password;
+
 }
