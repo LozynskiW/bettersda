@@ -35,7 +35,7 @@ public class Person {
 
     private Address address = new Address();
 
-    private String teamID = "WaitingRoom";
+    private String teamID="WaitingRoom";
 
     @NotNull
     private RoleEnum role = RoleEnum.USER;

@@ -25,10 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
@@ -153,8 +150,8 @@ public class TeamControllerTest {
 
         personService.addPerson(student1);
         personService.addPerson(student2);
-        personService.addPerson(student1);
-        personService.addPerson(student2);
+        personService.addPerson(teacher1);
+        personService.addPerson(teacher2);
 
         Team teamBeforeAddingPersons = Team.builder()
                 .name(teamName)
@@ -169,32 +166,58 @@ public class TeamControllerTest {
         //when
 
         Team teamFromDB = teamService.getAllTeams().get(0);
+        System.out.println(teamFromDB);
         Person personToAdd1 = personService.getAllPerson().get(0);
+        Person personToAdd2 = personService.getAllPerson().get(1);
+        Person personToAdd3 = personService.getAllPerson().get(2);
+        Person personToAdd4 = personService.getAllPerson().get(3);
 
         mockMvc.perform(
-                put("/api/team/addToTeam", teamFromDB.getName())
-                        .content("{"+
-                                "teamId: "+ teamFromDB.getName() +","+
-                                "personId: "+ personToAdd1.getId().toString()
-                                +"}")
+                put("/api/team/addUser/{personId}", personToAdd1.getId())
+                        .content(teamFromDB.getName())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(mvcResult -> System.out.println(mvcResult.getRequest().getContentAsString()));
+
+        mockMvc.perform(
+                put("/api/team/addUser/{personId}", personToAdd2.getId())
+                        .content(teamFromDB.getName())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(mvcResult -> System.out.println(mvcResult.getRequest().getContentAsString()));
+
+        mockMvc.perform(
+                put("/api/team/addUser/{personId}", personToAdd3.getId())
+                        .content(teamFromDB.getName())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(mvcResult -> System.out.println(mvcResult.getRequest().getContentAsString()));
+
+        mockMvc.perform(
+                put("/api/team/addUser/{personId}", personToAdd4.getId())
+                        .content(teamFromDB.getName())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(mvcResult -> System.out.println(mvcResult.getRequest().getContentAsString()));
 
         //then
 
-        teamFromDB = teamService.getAllTeams().get(0);
+        mockMvc.perform(
+                get("/api/team/teamStudents/{id}", teamFromDB.getName()))
+                .andDo(mvcResult -> System.out.println(mvcResult.getResponse().getContentAsString()));
 
-        System.out.println(teamFromDB);
+        mockMvc.perform(get("/api/person/test/all"))
+                .andDo(mvcResult -> System.out.println(mvcResult.getResponse().getContentAsString()));
 
-        System.out.println(Arrays.toString(teamFromDB.getTeacherSet().toArray()));
-        System.out.println(Arrays.toString(teamFromDB.getTeacherSet().toArray()));
+        Set<Person> studentSet = teamService.getAllStudentsForTeam(teamFromDB.getName());
 
-        Assert.assertEquals(teamFromDB.getName(), teamFromDB.getName());
-        Assert.assertTrue(teamFromDB.getTeacherSet().contains(teacher1));
-        Assert.assertTrue(teamFromDB.getTeacherSet().contains(teacher2));
-        Assert.assertTrue(teamFromDB.getTeacherSet().contains(student1));
-        Assert.assertTrue(teamFromDB.getTeacherSet().contains(student2));
+        Set<Person> teacherSet = teamService.getAllTeachersForTeam(teamFromDB.getName());
+
+        System.out.println(Arrays.toString(studentSet.toArray()));
+        System.out.println(Arrays.toString(teacherSet.toArray()));
+
+        Assert.assertEquals(studentSet.size(), 2);
+        Assert.assertEquals(teacherSet.size(), 2);
 
     }
 

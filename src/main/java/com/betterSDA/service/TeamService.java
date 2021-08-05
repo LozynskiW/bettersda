@@ -23,14 +23,13 @@ public class TeamService {
 
     public void addTeam(Team team) {
         TeamEntity teamEntity = toEntity(team);
-        teamEntity.setTeacherEntitySet(new ArrayList<>());
-        teamEntity.setStudentEntitySet(new ArrayList<>());
+        teamEntity.setTeacherEntitySet(new HashSet<>());
+        teamEntity.setStudentEntitySet(new HashSet<>());
         teamRepo.save(teamEntity);
     }
 
     public void updateTeam(Team team) {
-        System.out.println("UPDATE");
-        System.out.println(team);
+
         teamRepo.save(toEntity(team));
     }
 
@@ -55,28 +54,40 @@ public class TeamService {
 
     public void addPersonToTeam(String teamId, UUID personId) {
 
-        Team team = this.getTeamById(teamId);
+        Person person;
 
-        Person person = this.personService.getPersonById(personId);
+        try {
 
-        if (person.getRole() == RoleEnum.USER) this.addStudentToTeam(team, person);
+            Team team = this.getTeamById(teamId);
 
-        else if (person.getRole() == RoleEnum.TEACHER) this.addTeacherToTeam(team, person);
+            person = this.personService.getPersonById(personId);
 
-        else throw new IllegalStateException("Person role must either be USER or TEACHER");
+            if (person.getRole() == RoleEnum.TEACHER || person.getRole() == RoleEnum.USER) {
+                person.setTeamID(teamId);
+                personService.updatePerson(person);
+            }
+            else throw new IllegalStateException("Role must either be TEACHER or USER");
+
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void addTeacherToTeam(Team team, Person person) {
-        team.getTeacherSet().add(person);
-
-        this.updateTeam(team);
+    public Set<Person> getAllStudentsForTeam(String teamId) {
+        return personService.getAllPerson()
+                .stream()
+                //.peek(System.out::println)
+                .filter(p -> p.getTeamID() == teamId)
+                .filter(p -> p.getRole() == RoleEnum.USER)
+                .collect(Collectors.toSet());
     }
 
-    private void addStudentToTeam(Team team, Person person) {
-        team.getTeacherSet().add(person);
-
-        this.updateTeam(team);
+    public Set<Person> getAllTeachersForTeam(String teamId) {
+        return personService.getAllPerson()
+                .stream()
+                .filter(p -> p.getTeamID() == teamId)
+                .filter(p -> p.getRole() == RoleEnum.TEACHER)
+                .collect(Collectors.toSet());
     }
-
 
 }

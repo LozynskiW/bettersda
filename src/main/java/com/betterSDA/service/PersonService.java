@@ -22,6 +22,8 @@ public class PersonService {
     private final PersonRepo personRepo;
 
     public void addPerson(Person person) {
+        System.out.println("addPerson");
+        System.out.println(person);
         personRepo.save(toEntity(person));
     }
 

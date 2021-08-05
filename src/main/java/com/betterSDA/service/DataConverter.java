@@ -25,6 +25,7 @@ public class DataConverter {
             personEntity.setFirstName(person.getFirstName());
             personEntity.setLastName(person.getLastName());
             personEntity.setPhoneNumber(person.getPhoneNumber());
+            personEntity.setTeamID(person.getTeamID());
 
         } catch (NullPointerException ex) {
             System.err.println("No byczku coś się zepsuło");
@@ -50,6 +51,7 @@ public class DataConverter {
             person.setFirstName(personEntity.getFirstName());
             person.setLastName(personEntity.getLastName());
             person.setPhoneNumber(personEntity.getPhoneNumber());
+            person.setTeamID(personEntity.getTeamID());
 
         } catch (NullPointerException ex) {
             System.err.println("No byczku coś się zepsuło");

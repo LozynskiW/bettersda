@@ -36,11 +36,11 @@ public class TeamEntity {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_team_id", referencedColumnName="name")
-    private Set<PersonEntity> studentEntitySet;
+    @JoinColumn(name = "student_team_id")
+    private Set<PersonEntity> studentEntitySet = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_team_id", referencedColumnName="name")
-    private Set<PersonEntity> teacherEntitySet;
+    @JoinColumn(name = "teacher_team_id")
+    private Set<PersonEntity> teacherEntitySet = new HashSet<>();
 
 }
