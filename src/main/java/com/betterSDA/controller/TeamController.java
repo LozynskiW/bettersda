@@ -61,6 +61,12 @@ public class TeamController {
         teamService.addPersonToTeam(teamId, UUID.fromString(personId));
     }
 
+    @DeleteMapping("/removeUser/{personId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void removePersonFromTeam(@Valid @RequestBody String teamId, @PathVariable String personId) {
+        teamService.removePersonFromTeam(teamId, UUID.fromString(personId));
+    }
+
     @PutMapping
     public void updateTeam(@Valid @RequestBody Team team) {
         teamService.updateTeam(team);
@@ -78,8 +84,8 @@ public class TeamController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Team getTeamById(@PathVariable String id) {
-
         return teamService.getTeamById(id);
     }
 

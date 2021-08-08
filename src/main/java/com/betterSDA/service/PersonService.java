@@ -5,7 +5,6 @@ import com.betterSDA.model.dto.Person;
 import com.betterSDA.model.entity.PersonEntity;
 import com.betterSDA.repo.PersonRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import static com.betterSDA.service.DataConverter.toDto;
@@ -26,18 +25,28 @@ public class PersonService {
 
     public void addPerson(Person person) {
 
+        if (person.getPassword() == null) {
+            throw new IllegalStateException("Password cannot be null");
+        }
+
+        if (person.getRole() == null) person.setRole(RoleEnum.USER);
+
+        if (person.getTeamID() == null) person.setTeamID("WaitingRoom");
+
         personRepo.save(PersonEntity.builder()
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())
                 .email(person.getEmail())
                 .phoneNumber(person.getPhoneNumber())
                 .password(passwordEncoder.encode(person.getPassword()))
-                .role(RoleEnum.USER)
+                .role(person.getRole())
+                .teamID(person.getTeamID())
                 .build());
 
     }
 
     public void updatePerson(Person person) {
+
         personRepo.save(toEntity(person));
     }
 

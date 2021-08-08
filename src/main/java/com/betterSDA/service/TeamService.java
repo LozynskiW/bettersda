@@ -63,7 +63,7 @@ public class TeamService {
             person = this.personService.getPersonById(personId);
 
             if (person.getRole() == RoleEnum.TEACHER || person.getRole() == RoleEnum.USER) {
-                person.setTeamID(teamId);
+                person.setTeamID(team.getName());
                 personService.updatePerson(person);
             }
             else throw new IllegalStateException("Role must either be TEACHER or USER");
@@ -71,6 +71,28 @@ public class TeamService {
         } catch (NoSuchElementException e) {
             e.printStackTrace();
         }
+    }
+
+    public void removePersonFromTeam(String teamId, UUID personId) {
+
+        Person person;
+
+        try {
+
+            Team team = this.getTeamById(teamId);
+
+            person = this.personService.getPersonById(personId);
+
+            if (person.getRole() == RoleEnum.TEACHER || person.getRole() == RoleEnum.USER) {
+                person.setTeamID("WaitingRoom");
+                personService.updatePerson(person);
+            }
+            else throw new IllegalStateException("Role must either be TEACHER or USER");
+
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public Set<Person> getAllStudentsForTeam(String teamId) {

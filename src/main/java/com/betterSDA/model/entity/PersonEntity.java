@@ -36,8 +36,9 @@ public class PersonEntity {
     @NotBlank
     private String email;
     @NotNull
-    private RoleEnum role = RoleEnum.USER;
-    private String teamID="WaitingRoom";
+    private RoleEnum role;
+    @NotBlank
+    private String teamID;
     @Embedded
     private Address address;
     @NotBlank

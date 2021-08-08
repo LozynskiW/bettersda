@@ -31,6 +31,8 @@ public class DataConverter {
             personEntity.setLastName(person.getLastName());
             personEntity.setPhoneNumber(person.getPhoneNumber());
             personEntity.setPassword(person.getPassword());
+            personEntity.setTeamID(person.getTeamID());
+            personEntity.setRole(person.getRole());
 
 
         } catch (NullPointerException ex) {
@@ -58,6 +60,8 @@ public class DataConverter {
             person.setLastName(personEntity.getLastName());
             person.setPhoneNumber(personEntity.getPhoneNumber());
             person.setPassword(personEntity.getPassword());
+            person.setTeamID(personEntity.getTeamID());
+            person.setRole(personEntity.getRole());
 
         } catch (NullPointerException ex) {
             System.err.println("No byczku coś się zepsuło");
@@ -65,6 +69,7 @@ public class DataConverter {
 
         if (personEntity.getAddress() != null) person.setAddress(personEntity.getAddress());
         else person.setAddress(null);
+
         if (personEntity.getRole() == RoleEnum.ADMIN || personEntity.getRole() == RoleEnum.TEACHER || personEntity.getRole() == RoleEnum.USER) person.setRole(personEntity.getRole());
         else person.setRole(RoleEnum.USER);
 

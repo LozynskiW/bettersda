@@ -35,11 +35,13 @@ public class Person {
 
     private Address address = new Address();
 
-    private String teamID="WaitingRoom";
+    @NotBlank
+    private String teamID;
 
     @NotNull
-    private RoleEnum role = RoleEnum.USER;
+    private RoleEnum role;
 
+    @NotBlank
     private String password;
 
 }
