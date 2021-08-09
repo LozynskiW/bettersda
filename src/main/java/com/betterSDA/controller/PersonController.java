@@ -5,8 +5,6 @@ import com.betterSDA.model.dto.Person;
 import com.betterSDA.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -37,19 +35,14 @@ public class PersonController {
     }
 
     @PostMapping
-    public String handleAddPerson(@Valid @ModelAttribute("person") Person person, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(System.out::println);
-            return "redirect:/api/person";
-        }
-
+    public RedirectView handleAddPerson(@Valid Person person) {
         if (person.getId() == null) {
             personService.addPerson(person);
         } else {
             personService.updatePerson(person);
         }
-        return "redirect:/api/person/all";
+
+        return new RedirectView("/");
     }
 
     @GetMapping("/test/all")
@@ -64,3 +57,47 @@ public class PersonController {
         return mav;
     }
 }
+
+
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void addPerson(@Valid @RequestBody Person person) {
+//
+////        if (person.getAddress().getId() == null) {
+////
+////            Long newId = this.personIdGenerator();
+////
+////            person.getAddress().setId(newId);
+////            person.setId(newId);
+////
+////            addressService.addAddress(person.getAddress());
+////
+////        }
+//
+//        personService.addPerson(person);
+//    }
+
+//    @PutMapping
+//    public void updatePerson(@Valid @RequestBody Person person) {
+//        personService.updatePerson(person);
+//    }
+//
+//    @DeleteMapping()
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void deletePersonById(@RequestParam UUID id) {
+//        personService.deletePersonById(id);
+//    }
+//
+////    @GetMapping
+////    public List<Person> getAllPersons() {
+////        return personService.getAllPerson();
+////    }
+//
+//    @GetMapping({"/{id}"})
+//    public Person getPersonById(@PathVariable UUID id) {
+//
+//        return personService.getPersonById(id);
+//    }
+
+//    //..............................................................
+//

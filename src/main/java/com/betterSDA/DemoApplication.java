@@ -5,8 +5,10 @@ import com.betterSDA.model.RoleEnum;
 import com.betterSDA.model.dto.Address;
 import com.betterSDA.model.dto.Office;
 import com.betterSDA.model.dto.Person;
+import com.betterSDA.model.dto.Team;
 import com.betterSDA.service.OfficeService;
 import com.betterSDA.service.PersonService;
+import com.betterSDA.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
@@ -26,6 +28,7 @@ public class DemoApplication {
 
 	private final PersonService personService;
 	private final OfficeService officeService;
+	private final TeamService teamService;
 
 
 	@EventListener
@@ -36,6 +39,9 @@ public class DemoApplication {
 		} catch (IndexOutOfBoundsException ex) {
 			createOffice();
 		}
+
+		Team team = new Team();
+		teamService.addTeam(team);
 
 	}
 

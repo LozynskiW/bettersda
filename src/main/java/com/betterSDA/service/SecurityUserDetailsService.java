@@ -22,8 +22,8 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        PersonEntity userEntity = personRepo.findById(UUID.fromString(s))
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        PersonEntity userEntity = personRepo.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         return new User(userEntity.getEmail(), userEntity.getPassword(),

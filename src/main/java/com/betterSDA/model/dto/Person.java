@@ -40,7 +40,7 @@ public class Person {
     @NotNull
     private RoleEnum role;
 
-    @NotBlank
+//    @NotBlank
     private String password;
 
 }

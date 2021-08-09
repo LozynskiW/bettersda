@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import static com.betterSDA.service.DataConverter.toDto;
 import static com.betterSDA.service.DataConverter.toEntity;
 
+import java.time.Period;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class TeamService {
     private final TeamRepo teamRepo;
     private final PersonService personService;
 
-    public void addTeam() {
+    public void addTeam(Team team) {
         TeamEntity teamEntity = TeamEntity.builder().build();
         teamEntity.setTeacherEntitySet(new HashSet<>());
         teamEntity.setStudentEntitySet(new HashSet<>());
@@ -92,6 +93,50 @@ public class TeamService {
         } catch (NoSuchElementException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void addPersonsToTeam(String teamID, String personsUUIDs) {
+        Set<Person> person = new HashSet<>();
+
+        try {
+//            Team team = this.getTeamById(teamID);
+
+
+                person.add(personService.getPersonById(UUID.fromString(personsUUIDs)));
+
+
+
+        }catch (NoSuchElementException ex) {
+            ex.printStackTrace();
+        }
+
+        Team team = Team.builder()
+                .name(teamID)
+                .studentSet(person)
+                .build();
+
+        updateTeam(team);
+
+    }    public void addPersonsToTeam2(String team, List<String> personsId) {
+
+
+        try {
+                    Person newPerson = Person.builder()
+                    .id(UUID.fromString(personsId.get(0)))
+                    .teamID(team)
+                    .build();
+
+
+            personService.updatePerson(newPerson);
+
+
+
+
+        }catch (NoSuchElementException ex) {
+            ex.printStackTrace();
+        }
+
 
     }
 

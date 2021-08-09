@@ -1,10 +1,10 @@
 package com.betterSDA.controller;
 
+import com.betterSDA.model.SelectOption;
 import com.betterSDA.model.dto.Person;
 import com.betterSDA.model.dto.Team;
-import com.betterSDA.model.entity.PersonEntity;
+import com.betterSDA.service.PersonService;
 import com.betterSDA.service.TeamService;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,18 +12,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import com.jayway.jsonpath.JsonPath;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/team")
 @RequiredArgsConstructor
 public class TeamController {
     private final TeamService teamService;
+    private final PersonService personService;
 
 //    @GetMapping("/")
 //    public ModelAndView getAllTeams() {
@@ -48,14 +48,14 @@ public class TeamController {
 
 
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addTeam() {
+//    @PostMapping("/test")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void addTeam() {
+//
+//        teamService.addTeam();
+//    }
 
-        teamService.addTeam();
-    }
-
-    @PutMapping("/addUser/{personId}")
+    @PutMapping("/test/addUser/{personId}")
     @ResponseStatus(HttpStatus.CREATED)
     public void addPersonToTeam(@Valid @RequestBody String teamId, @PathVariable String personId) {
         teamService.addPersonToTeam(teamId, UUID.fromString(personId));
@@ -67,7 +67,7 @@ public class TeamController {
         teamService.removePersonFromTeam(teamId, UUID.fromString(personId));
     }
 
-    @PutMapping
+    @PutMapping("/test")
     public void updateTeam(@Valid @RequestBody Team team) {
         teamService.updateTeam(team);
     }
@@ -78,12 +78,12 @@ public class TeamController {
         teamService.deleteTeamByIdName(id);
     }
 
-    @GetMapping
+    @GetMapping("/test/all")
     public List<Team> getAllTeams() {
         return teamService.getAllTeams();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/test/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Team getTeamById(@PathVariable String id) {
         return teamService.getTeamById(id);
@@ -101,17 +101,77 @@ public class TeamController {
         return teamService.getAllTeachersForTeam(id);
     }
 
-    @GetMapping("/all")
-    public ModelAndView displayAllTeams() {
-        ModelAndView mav = new ModelAndView("groupList");
-        mav.addObject("teams", teamService.getAllTeams());
-        return mav;
-    }
+//    @GetMapping("/all")
+//    public ModelAndView displayAllTeams() {
+//        ModelAndView mav = new ModelAndView("groupList");
+//        mav.addObject("teams", teamService.getAllTeams());
+//        return mav;
+//    }
 
     @GetMapping("/add")
     public ModelAndView displayAddTeamForm() {
         return new ModelAndView("addGroup");
     }
 
+    //-------------------------------------------------------------------------
+
+    @GetMapping("/all")
+    public ModelAndView displayAllTeams() {
+        ModelAndView mav = new ModelAndView("teamList");
+        mav.addObject("teams", teamService.getAllTeams());
+        mav.addObject("team", new Team());
+        return mav;
+    }
+
+    @GetMapping("/addPerson/{id}")
+//    public ModelAndView displayAddPersonToTeamPage(@RequestParam String teamID) {
+    public ModelAndView displayAddPersonToTeamPage(@PathVariable String id) {
+
+        List<String> list = new ArrayList<>();
+
+        ModelAndView mav = new ModelAndView("addPersonToTeam");
+        mav.addObject("team", id);
+        mav.addObject("persons", personService.getAllPerson());
+        mav.addObject("list", list);
+//                .stream()
+//                .map(person -> SelectOption.builder()
+//                        .id(person.getId())
+//                        .label(person.getFirstName() + " " + person.getLastName()).build())
+//                .collect(Collectors.toList()));
+
+        System.out.println("1   " + teamService.getTeamById(id));
+
+        return mav;
+    }
+
+    @PostMapping("/put/{teamId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public RedirectView handleAddPersonToTeam(@Valid @PathVariable String teamId, List<String> personsId) {
+//    public RedirectView handleAddPersonToTeam(@Valid @RequestBody String teamId, @PathVariable String personId) {
+
+        System.out.println("2   " + teamId + "   //   " + personsId);
+
+        teamService.addPersonsToTeam2(teamId, personsId);
+
+        return new RedirectView("/api/team/all");
+    }
+
+    @PostMapping
+    public RedirectView handleAddTeam(@Valid Team team) {
+        if (team.getName() == null) {
+            teamService.addTeam(team);
+        } else {
+            teamService.updateTeam(team);
+        }
+
+        return new RedirectView("/api/team/all");
+    }
+
+    @GetMapping("/edit")
+    public ModelAndView displayEditTeamPage(@RequestParam String name) {
+        ModelAndView mav = new ModelAndView("teamList");
+        mav.addObject("team", teamService.getTeamById(name));
+        return mav;
+    }
 
 }

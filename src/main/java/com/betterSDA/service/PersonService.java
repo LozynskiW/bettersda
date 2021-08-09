@@ -38,7 +38,8 @@ public class PersonService {
                 .lastName(person.getLastName())
                 .email(person.getEmail())
                 .phoneNumber(person.getPhoneNumber())
-                .password(passwordEncoder.encode(person.getPassword()))
+//                .password(passwordEncoder.encode(person.getPassword()))
+                .password(person.getPassword())
                 .role(person.getRole())
                 .teamID(person.getTeamID())
                 .build());
