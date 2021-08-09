@@ -47,6 +47,15 @@ public class TeamController {
 
 
 
+    @GetMapping("/addUser/{personId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ModelAndView displayAddPersonToTeamView(@PathVariable String personId) {
+        ModelAndView mav = new ModelAndView("groupListForAdding");
+        mav.addObject("teams", teamService.getAllTeams());
+        mav.addObject("personId", personId);
+        return mav;
+    }
+
 
 //    @PostMapping("/test")
 //    @ResponseStatus(HttpStatus.CREATED)

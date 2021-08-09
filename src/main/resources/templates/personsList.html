@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>BetterSDA</title>
@@ -22,6 +22,7 @@
         <th scope="col">Numer telefonu</th>
         <th scope="col">Rola</th>
         <th scope="col">Nazwa grupy</th>
+        <th scope="col"></th>
         <th scope="col">Id</th>
     </tr>
     </thead>
@@ -34,6 +35,7 @@
         <td th:text="${person.phoneNumber}"></td>
         <td th:text="${person.role.name()}"></td>
         <td th:text="${person.getTeamID()}"></td>
+        <td><a th:href="@{/api/team/addUser/{id}(id=${person.id})}">Przydziel do grupy</a></td>
         <td th:text="${person.getPassword()}"></td>
         <td th:text="${person.getId()}"></td>
     </tr>
