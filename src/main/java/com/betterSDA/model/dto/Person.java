@@ -35,7 +35,6 @@ public class Person {
 
     private Address address = new Address();
 
-    @NotBlank
     private String teamID;
 
     @NotNull

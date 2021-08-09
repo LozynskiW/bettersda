@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -74,7 +76,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void shouldAddPersonEntity() throws Exception {
+    public void shouldAddPerson() throws Exception {
 
         //given
 
@@ -82,7 +84,7 @@ public class PersonControllerTest {
         String lastName = "Carpenter";
         String email = "john.carpenter@thing.com";
         String phoneNumber = "111222333";
-        String street = "złota 44";
+        String street = "złota44";
 
         Address address = new Address();
         address.setStreet(street);
@@ -105,18 +107,18 @@ public class PersonControllerTest {
                 post("/api/person")
                 .content(toJson(personToAdd))
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
+                .accept(MediaType.APPLICATION_JSON))
+                //.andExpect(status().isCreated())
+                .andDo(mvcResult -> System.out.println(mvcResult.getRequest().getCharacterEncoding()))
+                .andDo(mvcResult -> System.out.println(mvcResult.getRequest().getRequestURL().toString()))
+                .andDo(mvcResult -> System.out.println(mvcResult.getRequest().getContentAsString()))
+                .andDo(mvcResult -> System.out.println("RES:"+mvcResult.getResponse().getContentAsString()));
 
         //then
 
-        mockMvc.perform(get("/api/person/test/all", personToAdd.getId())
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(mvcResult -> System.out.println(mvcResult.getResponse().getContentAsString()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*").isArray())
-                .andExpect(jsonPath("$.[0].address.street").value(street))
-                .andExpect(jsonPath("$.[0].firstName").value(firstName))
-                .andExpect(jsonPath("$.[0].lastName").value(lastName));
+        System.out.println(personService.getAllPerson());
+        Assert.assertEquals(1, personService.getAllPerson().size());
+        Assert.assertEquals(personToAdd.getPhoneNumber(), personService.getAllPerson().get(0).getPhoneNumber());
 
 
     }

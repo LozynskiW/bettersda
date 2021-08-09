@@ -18,7 +18,7 @@
 <!--                        <a class="nav-link active" aria-current="page" th:href="@{/}">Strona główna</a>-->
 <!--                    </li>-->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sprawdź grupy</a>
+                        <a class="nav-link" th:href="@{/api/team/all}">Sprawdź grupy</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Twój profil</a>
@@ -28,7 +28,7 @@
                             Zarządzanie Admina
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Stwórz grupę</a></li>
+                            <li><a class="dropdown-item" th:href="@{/api/team/add}">Stwórz grupę</a></li>
                             <li><a class="dropdown-item" href="#">Przypisz rolę</a></li>
                             <li><a class="dropdown-item" th:href="@{/api/person}">Dodaj użytkownika</a></li>
                             <li><a class="dropdown-item" th:href="@{/api/person/all}">Wyświetl użytkowników</a></li>
@@ -38,7 +38,7 @@
                         <a class="nav-link" href="#">Zaloguj się</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Zarejestruj się</a>
+                        <a class="nav-link" href="@{/api/person}">Zarejestruj się</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}">Kontakt</a>

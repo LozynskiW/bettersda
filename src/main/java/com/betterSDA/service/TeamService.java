@@ -21,8 +21,8 @@ public class TeamService {
     private final TeamRepo teamRepo;
     private final PersonService personService;
 
-    public void addTeam(Team team) {
-        TeamEntity teamEntity = toEntity(team);
+    public void addTeam() {
+        TeamEntity teamEntity = TeamEntity.builder().build();
         teamEntity.setTeacherEntitySet(new HashSet<>());
         teamEntity.setStudentEntitySet(new HashSet<>());
         teamRepo.save(teamEntity);

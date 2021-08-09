@@ -37,7 +37,7 @@ public class PersonEntity {
     private String email;
     @NotNull
     private RoleEnum role;
-    @NotBlank
+
     private String teamID;
     @Embedded
     private Address address;

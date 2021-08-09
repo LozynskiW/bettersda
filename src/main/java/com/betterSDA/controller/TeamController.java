@@ -50,9 +50,9 @@ public class TeamController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addTeam(@Valid @RequestBody Team team) {
+    public void addTeam() {
 
-        teamService.addTeam(team);
+        teamService.addTeam();
     }
 
     @PutMapping("/addUser/{personId}")
@@ -99,6 +99,18 @@ public class TeamController {
     public Set<Person> getTeamTeachers(@PathVariable String id) {
 
         return teamService.getAllTeachersForTeam(id);
+    }
+
+    @GetMapping("/all")
+    public ModelAndView displayAllTeams() {
+        ModelAndView mav = new ModelAndView("groupList");
+        mav.addObject("teams", teamService.getAllTeams());
+        return mav;
+    }
+
+    @GetMapping("/add")
+    public ModelAndView displayAddTeamForm() {
+        return new ModelAndView("addGroup");
     }
 
 
