@@ -59,7 +59,7 @@
                         </form>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Zarejestruj się</a>
+                        <a class="nav-link" th:href="@{/api/person}">Zarejestruj się</a>
                     </li>
                     <li class="nav-item ms-auto me-3" sec:authorize="isAnonymous()">
                         <a class="nav-link d-flex" th:href="@{/}">Kontakt</a>

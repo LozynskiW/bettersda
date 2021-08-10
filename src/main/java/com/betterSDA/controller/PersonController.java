@@ -1,5 +1,7 @@
 package com.betterSDA.controller;
 
+import com.betterSDA.model.Country;
+import com.betterSDA.model.dto.Address;
 import com.betterSDA.model.dto.Person;
 
 import com.betterSDA.service.PersonService;
@@ -42,7 +44,7 @@ public class PersonController {
             personService.updatePerson(person);
         }
 
-        return new RedirectView("/");
+        return new RedirectView("/api/person/all");
     }
 
     @GetMapping("/test/all")

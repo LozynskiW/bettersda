@@ -36,7 +36,6 @@
         <td th:text="${person.role.name()}"></td>
         <td th:text="${person.getTeamID()}"></td>
         <td><a th:href="@{/api/team/addUser/{id}(id=${person.id})}">Przydziel do grupy</a></td>
-        <td th:text="${person.getPassword()}"></td>
         <td th:text="${person.getId()}"></td>
     </tr>
     </tbody>
