@@ -133,6 +133,7 @@ public class TeamController {
         ModelAndView mav = new ModelAndView("teamList");
         mav.addObject("teams", teamService.getAllTeams());
         mav.addObject("team", new Team());
+        mav.addObject("persons", personService.getAllPerson());
         return mav;
     }
 
