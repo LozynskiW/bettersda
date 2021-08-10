@@ -33,7 +33,7 @@ public class Person {
     @Email
     private String email;
 
-    private Address address = new Address();
+    private Address address;
 
     private String teamID;
 

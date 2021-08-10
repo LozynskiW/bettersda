@@ -1,6 +1,7 @@
 package com.betterSDA.controller;
 
 import com.betterSDA.model.Country;
+import com.betterSDA.model.RoleEnum;
 import com.betterSDA.model.dto.Address;
 import com.betterSDA.model.dto.Person;
 
@@ -41,6 +42,25 @@ public class PersonController {
         if (person.getId() == null) {
             personService.addPerson(person);
         } else {
+            personService.updatePerson(person);
+        }
+
+        return new RedirectView("/api/person/all");
+    }
+
+    @GetMapping("/changeRole/{personId}")
+    public RedirectView changeRoleForPerson(@PathVariable String personId) {
+        Person person = personService.getPersonById(UUID.fromString(personId));
+        if (person == null) {
+            return new RedirectView("/api/person/all");
+        } else {
+
+            if (person.getRole() == RoleEnum.USER) {
+                person.setRole(RoleEnum.TEACHER);
+            }
+            else if (person.getRole() == RoleEnum.TEACHER) {
+                person.setRole(RoleEnum.USER);
+            }
             personService.updatePerson(person);
         }
 

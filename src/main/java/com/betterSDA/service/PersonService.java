@@ -40,6 +40,7 @@ public class PersonService {
                 .phoneNumber(person.getPhoneNumber())
 //                .password(passwordEncoder.encode(person.getPassword()))
                 .password(person.getPassword())
+                .address(person.getAddress())
                 .role(person.getRole())
                 .teamID(person.getTeamID())
                 .build());

@@ -39,8 +39,18 @@
                 <button type="submit" class="btn btn-success">Przydziel do grupy</button>
             </form>
             <form method="get" th:action="@{/api/team/removeUser/{id}(id=${person.id})}">
-                <button type="submit" class="btn btn-success">Usuń z grupy</button>
+                <button type="submit" class="btn btn-danger">Usuń z grupy</button>
             </form>
+            <div th:if="${#strings.equals(person.getRole(), 'USER')}">
+                <form method="get" th:action="@{/api/person/changeRole/{id}(id=${person.id})}">
+                    <button type="submit" class="btn btn-warning">Zmień rolę na NAUCZYCIEL</button>
+                </form>
+            </div>
+            <div th:if="${#strings.equals(person.getRole(), 'TEACHER')}">
+                <form method="get" th:action="@{/api/person/changeRole/{id}(id=${person.id})}">
+                    <button type="submit" class="btn btn-info">Zmień rolę na STUDENT</button>
+                </form>
+            </div>
 
             <!--<a th:href="@{/api/team/addUser/{id}(id=${person.id})}">Przydziel do grupy</a>-->
             <!--<a th:href="@{/api/team/removeUser/{id}(id=${person.id})}">Usuń z grupy</a>-->

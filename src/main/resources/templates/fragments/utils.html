@@ -26,9 +26,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" th:href="@{/api/team/all}">Sprawdź grupy</a></li>
-                            <li><a class="dropdown-item" href="#">Przypisz rolę</a></li>
-                            <li><a class="dropdown-item" th:href="@{/api/person}">Dodaj użytkownika</a></li>
-                            <li><a class="dropdown-item" th:href="@{/api/person/all}">Wyświetl użytkowników</a></li>
+                            <li><a class="dropdown-item" th:href="@{/api/person/all}">Zarządzaj użytkownikami</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -59,7 +57,7 @@
                         <a class="nav-link" th:href="@{/api/person}">Zarejestruj się</a>
                     </li>
                     <li class="nav-item ms-auto me-3" sec:authorize="isAnonymous()">
-                        <a class="nav-link d-flex" th:href="@{/}">Kontakt</a>
+                        <a class="nav-link d-flex" th:href="@{/api/office/contact}">Kontakt</a>
                     </li>
                 </ul>
             </div>
