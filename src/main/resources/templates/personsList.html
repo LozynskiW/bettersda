@@ -23,7 +23,6 @@
         <th scope="col">Rola</th>
         <th scope="col">Nazwa grupy</th>
         <th scope="col"></th>
-        <th scope="col">Id</th>
     </tr>
     </thead>
     <tbody>
@@ -36,11 +35,16 @@
         <td th:text="${person.role.name()}"></td>
         <td th:text="${person.getTeamID()}"></td>
         <td>
-            <span> <button type="submit" class="btn btn-success"th:href="@{/api/team/addUser/{id}(id=${person.id})}">Przydziel do grupy</button></span>
-            <span> <button type="submit" class="btn btn-danger"onclick="refreshPage()" th:href="@{/api/team/removeUser/{id}(id=${person.id})}">Usuń z grupy</button></span>
+            <form method="get" th:action="@{/api/team/addUser/{id}(id=${person.id})}">
+                <button type="submit" class="btn btn-success">Przydziel do grupy</button>
+            </form>
+            <form method="get" th:action="@{/api/team/removeUser/{id}(id=${person.id})}">
+                <button type="submit" class="btn btn-success">Usuń z grupy</button>
+            </form>
+
+            <!--<a th:href="@{/api/team/addUser/{id}(id=${person.id})}">Przydziel do grupy</a>-->
+            <!--<a th:href="@{/api/team/removeUser/{id}(id=${person.id})}">Usuń z grupy</a>-->
         </td>
-        <td th:text="${person.getPassword()}"></td>
-        <td th:text="${person.getId()}"></td>
     </tr>
     </tbody>
 </table>
@@ -73,9 +77,6 @@
 <!--</div>-->
 
 <script th:fragment="jscript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    function refreshPage(){
-        window.location.reload();
-    }
 </script>
 
 </body>
