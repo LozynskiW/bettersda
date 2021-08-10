@@ -1,22 +1,22 @@
 package com.betterSDA.controller;
 
-import com.betterSDA.model.SelectOption;
 import com.betterSDA.model.dto.Person;
 import com.betterSDA.model.dto.Team;
 import com.betterSDA.service.PersonService;
 import com.betterSDA.service.TeamService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/team")
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class TeamController {
     private final TeamService teamService;
     private final PersonService personService;
+    private  final  PersonController personController;
 
 //    @GetMapping("/")
 //    public ModelAndView getAllTeams() {
@@ -64,17 +65,20 @@ public class TeamController {
 //        teamService.addTeam();
 //    }
 
-    @PutMapping("/test/addUser/{personId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addPersonToTeam(@Valid @RequestBody String teamId, @PathVariable String personId) {
-        teamService.addPersonToTeam(teamId, UUID.fromString(personId));
+    @PostMapping("/addUser/{personId}")
+    public RedirectView addPersonToTeam(@Valid @RequestBody String teamId, @PathVariable String personId) {
+        teamService.addPersonToTeam(teamId.split("=")[1], UUID.fromString(personId));
+
+        return new RedirectView("/api/person/all");
     }
 
-    @DeleteMapping("/removeUser/{personId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void removePersonFromTeam(@Valid @RequestBody String teamId, @PathVariable String personId) {
-        teamService.removePersonFromTeam(teamId, UUID.fromString(personId));
+    @GetMapping("/removeUser/{personId}")
+    public RedirectView removePersonFromTeam(@Valid @PathVariable String personId) {
+        teamService.removePersonFromTeam(UUID.fromString(personId));
+
+        return new RedirectView("/api/person/all");
     }
+
 
     @PutMapping("/test")
     public void updateTeam(@Valid @RequestBody Team team) {

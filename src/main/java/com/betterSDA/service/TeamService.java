@@ -74,13 +74,11 @@ public class TeamService {
         }
     }
 
-    public void removePersonFromTeam(String teamId, UUID personId) {
+    public void removePersonFromTeam(UUID personId) {
 
         Person person;
 
         try {
-
-            Team team = this.getTeamById(teamId);
 
             person = this.personService.getPersonById(personId);
 

@@ -24,7 +24,7 @@
     <th scope="row" th:text="${iterator.count}"></th>
     <td th:text="${team.name}"></td>
     <td>
-      <form method="post" th:object="${team}" th:action="@{api/team/addUser/{id}(id=${personId})}">
+      <form method="post" th:object="${team}">
         <input type="hidden" th:name="teamId" th:value="${team.name}"/>
         <input type="submit" value="Przypisz"/>
       </form>
