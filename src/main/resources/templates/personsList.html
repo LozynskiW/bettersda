@@ -36,8 +36,8 @@
         <td th:text="${person.role.name()}"></td>
         <td th:text="${person.getTeamID()}"></td>
         <td>
-            <span><a th:href="@{/api/team/addUser/{id}(id=${person.id})}">Przydziel do grupy</a></span>
-            <span><a onclick="refreshPage()" th:href="@{/api/team/removeUser/{id}(id=${person.id})}">Usuń z grupy</a></span>
+            <span> <button type="submit" class="btn btn-success"th:href="@{/api/team/addUser/{id}(id=${person.id})}">Przydziel do grupy</button></span>
+            <span> <button type="submit" class="btn btn-danger"onclick="refreshPage()" th:href="@{/api/team/removeUser/{id}(id=${person.id})}">Usuń z grupy</button></span>
         </td>
         <td th:text="${person.getPassword()}"></td>
         <td th:text="${person.getId()}"></td>
