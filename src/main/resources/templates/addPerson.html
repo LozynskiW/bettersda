@@ -14,22 +14,99 @@
 
     <h3>Dodaj użytkownika:</h3>
 
-    <form method="post" th:object="${person}" th:action="@{/api/person}">
-        <input type="hidden" th:field="*{id}" th:value="${person.id}"/>
-        Imię: <input type="text" th:field="*{firstName}" th:value="${person.firstName}"/><br>
-        Nazwisko: <input type="text" th:field="*{lastName}" th:value="${person.lastName}"/><br>
-        Email: <input type="email" th:field="*{email}"
-                      th:value="${person.email}"/><br>
-        Numer Telefonu: <input type="text" th:field="*{phoneNumber}"
-                      th:value="${person.phoneNumber}"/><br>
-        Hasło: <input type="password" th:field="*{password}"
-                      th:value="${person.password}"/><br>
-        Role: <select th:field="*{role}" th:value="${person.role}">
-                <option value="TEACHER">Teacher</option>
-                <option value="USER">User</option>
-            </select><br>
-        <input type="submit" value="Zapisz"/>
-    </form>
+<!--<div class="row g-3 align-items-center">-->
+<!--    <div class="col-auto">-->
+<!--        <label for="inputPassword6" class="col-form-label">Password</label>-->
+<!--    </div>-->
+<!--    <div class="col-auto">-->
+<!--        <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">-->
+<!--    </div>-->
+<!--    <div class="col-auto">-->
+<!--        <label for="inputPassword6" class="col-form-label">lol</label>-->
+<!--    </div>-->
+<!--    <div class="col-auto">-->
+<!--        <input type="password" id="i" class="form-control" aria-describedby="passwordHelpInline">-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--    <form method="post" th:object="${person}" th:action="@{/api/person}">-->
+<!--        <input type="hidden" th:field="*{id}" th:value="${person.id}"/>-->
+<!--        Imię: <input type="text" th:field="*{firstName}" th:value="${person.firstName}"/><br>-->
+<!--        Nazwisko: <input type="text" th:field="*{lastName}" th:value="${person.lastName}"/><br>-->
+<!--        Email: <input type="email" th:field="*{email}"-->
+<!--                      th:value="${person.email}"/><br>-->
+<!--        Numer Telefonu: <input type="text" th:field="*{phoneNumber}"-->
+<!--                      th:value="${person.phoneNumber}"/><br>-->
+<!--        Hasło: <input type="password" th:field="*{password}"-->
+<!--                      th:value="${person.password}"/><br>-->
+<!--        Role: <select th:field="*{role}" th:value="${person.role}">-->
+<!--                <option value="TEACHER">Teacher</option>-->
+<!--                <option value="USER">User</option>-->
+<!--            </select><br>-->
+<!--        <input type="submit" value="Zapisz"/>-->
+<!--    </form>-->
+
+
+<form class="row g-2" style="width: 25%" method="post" th:object="${person}" th:action="@{/api/person}">
+            <input type="hidden" th:field="*{id}" th:value="${person.id}"/>
+    <div class="col-md-6">
+        <label  class="form-label">Imię</label>
+        <input type="text" class="form-control" id="inputName" th:field="*{firstName}" th:value="${person.firstName}">
+    </div>
+    <div class="col-md-6">
+        <label  class="form-label" >Nazwisko</label>
+        <input type="text" class="form-control" id="inputLastName" th:field="*{lastName}" th:value="${person.lastName}">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" id="inputEmail4" th:field="*{email}" th:value="${person.email}">
+    </div>
+    <div class="col-md-6">
+        <label  class="form-label">Numer telefonu</label>
+        <input type="text" class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}" th:value="${person.phoneNumber}">
+    </div>
+    <div class="col-md-6">
+        <label  class="form-label">Hasło</label>
+        <input type="password" class="form-control" id="inputPassword4" th:field="*{password}" th:value="${person.password}">
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Rola</label>
+        <select id="inputRole" class="form-select" th:field="*{role}" th:value="${person.role}">
+            <option value="USER">User</option>
+            <option value="TEACHER">Teacher</option>
+        </select><br>
+    </div>
+<!--    <br>-->
+<!--    <h2 class="mb-0">Podaj adres:</h2>-->
+<!--    <h7 class="mt-0">(opcjonalne)</h7>-->
+<!--    <p>-->
+<!--    <div class="col-8">-->
+<!--        <label for="inputAddress" class="form-label">Ulica</label>-->
+<!--        <input type="text" class="form-control" id="inputAddress" placeholder="Ulica">-->
+<!--    </div>-->
+<!--    <div class="col-md-4">-->
+<!--        <label for="inputZip" class="form-label">Kod pocztowy</label>-->
+<!--        <input type="text" class="form-control" id="inputZip" placeholder="xx-xxx">-->
+<!--    </div>-->
+<!--    <div class="col-6">-->
+<!--        <label for="inputAddress2" class="form-label">Miasto</label>-->
+<!--        <input type="text" class="form-control" id="inputAddress2" placeholder="Miasto">-->
+<!--    </div>-->
+<!--    <div class="col-md-6">-->
+<!--        <label for="inputState" class="form-label">Państwo</label>-->
+<!--        <select id="inputState" class="form-select">-->
+<!--            <option value="POLAND">Poland</option>-->
+<!--            <option value="ENGLAND">England</option>-->
+<!--            <option value="GERMANY">Germany</option>-->
+<!--            <option value="FRANCE">France</option>-->
+<!--            <option value="ITALY">Italy</option>-->
+<!--        </select>-->
+<!--    </div>-->
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Zarejestruj</button>
+    </div>
+</form>
 
 <script th:fragment="jscript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
